@@ -4,7 +4,7 @@
    data-URIs so the page works when opened straight from disk (Chrome blocks file:// mask images).
    ========================================================================== */
 
-html[data-me="me3"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 28' preserveAspectRatio='none'%3E%3Cpath d='M15 3C9.5 5 4 9 1 14C4 19 9.5 23 15 25Q13.4 14 15 3Z'/%3E%3Cpath fill='none' stroke='black' stroke-width='1.1' stroke-linecap='round' d='M15.6 8.5L18.8 7.4Q17.4 16 18.6 25M6 19.5Q12 24.5 18.2 26'/%3E%3C/svg%3E"); }
+html[data-me="me3"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 28' preserveAspectRatio='none'%3E%3Cpath d='M15 3C9.5 5 4 9 1 14C4 19 9.5 23 15 25Q13.4 14 15 3Z'/%3E%3C/svg%3E"); }
 html[data-me="me2"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2224%22 viewBox=%220 0 20 24%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M15 2 1 12 15 22Z%22/%3E%3Cpath fill=%22none%22 stroke=%22black%22 stroke-opacity=%22.55%22 stroke-width=%221.4%22 stroke-linejoin=%22round%22 d=%22M18.6 6 8.4 12.8 18.6 19.6Z%22/%3E%3C/svg%3E"); }
 html[data-me="me1"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 13' preserveAspectRatio='none'%3E%3Cpath d='M11 0 0 6.5 11 13z'/%3E%3C/svg%3E"); }
 
@@ -534,3 +534,30 @@ html[data-me="me2"] .me-picker.boxed .me-picker-drop { background: #c08a50; bord
 html[data-me="me2"] .me-row.selected .me-picker.boxed .me-picker-value { border: 1px solid #9be85c; background: #527233; }
 html[data-me="me2"] .me-picker-drop:not(#a)::after { -webkit-mask: none; mask: none; transform: none; width: 12px; height: 8px; background: #f6c58a; clip-path: polygon(0 0, 100% 0, 50% 100%); }
 html[data-me="me2"] .me-row.selected .me-picker-drop:not(#a)::after { background: #d8ffb0; }
+
+/* ---------- ME3 buttons, measured against refs/me3/ea/1-graphics.png (footer): square top corners, big curve only on the outer bottom corner,
+   dim blue border (no bright bottom glow), gradient ends at #057798 ---------- */
+html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  background-image: linear-gradient(180deg, #072a47 0%, #09406a 50%, #057798 100%) !important;
+  border-color: #08386a #074c76 #067393 #074c76 !important;
+  box-shadow: none !important; outline-color: rgb(143 214 236 / 38%);
+  border-radius: 1px 1px 1px 1px;
+}
+html[data-me="me3"] .btn-group > :first-child:not(:only-child) { border-radius: 1px 1px 1px 20px !important; }
+html[data-me="me3"] .btn-group > :last-child:not(:only-child)  { border-radius: 1px 1px 20px 1px !important; }
+html[data-me="me3"] .btn-group > :only-child  { border-radius: 1px 1px 22px 22px !important; }
+html[data-me="me3"] .btn-solid:not(.btn-group > *) { border-radius: 1px 1px 14px 1px !important; }
+
+/* ME3 arrow glow, measured: saturated blue (#3c9afc) hugging the edge, falling to #122c62 ~3px out */
+html[data-me="me3"] .me-arrow.me-arrow:not(.dim) { filter: drop-shadow(0 0 1.5px #3c9afc) drop-shadow(0 0 3px #2a6fe0) drop-shadow(0 0 6px #1b4fb0); }
+html[data-me="me3"] .me-arrow.me-arrow.dim { filter: drop-shadow(0 0 2px #1d4a8c) drop-shadow(0 0 4px #13335c) !important; }
+
+/* ME3 arrow: CSS filters run BEFORE masks, so a mask on the same element clips its own glow away.
+   Fix: the element itself is unmasked (its own background is clipped away), the ::before carries mask + colour, the element's filter adds the glow. */
+html[data-me="me3"] .me-arrow.me-arrow {
+  -webkit-mask: none; mask: none; position: relative; -webkit-background-clip: text; background-clip: text;
+}
+html[data-me="me3"] .me-arrow.me-arrow::before {
+  content: ""; position: absolute; inset: 0; background-color: inherit;
+  -webkit-mask: var(--me-arrow-mask) center / 100% 100% no-repeat; mask: var(--me-arrow-mask) center / 100% 100% no-repeat;
+}

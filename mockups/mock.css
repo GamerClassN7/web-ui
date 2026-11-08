@@ -69,8 +69,8 @@ html:has(body.bare) { scrollbar-gutter: auto; overflow: hidden; }
 .stage[data-me="me3"] .me-picker.no-arrows .me-picker-value { border-radius: 10px 0 0 10px; }
 .stage[data-me="me3"] .me-scroll { right: -21px; top: 0; bottom: 8px; }
 .stage[data-me="me3"] .me-desc { background: linear-gradient(180deg, #1c4283 0, #183a73 7px, #1c324b 20px, #0a1630 38px, #060c1a 56px, #05091a 100%); padding: 7px 22px; }
-.stage[data-me="me3"] .me-foot { gap: 3px; }
-.stage[data-me="me3"] .me-foot .btn { min-height: 21px; line-height: 19px; }
+.stage[data-me="me3"] .me-foot { gap: 2px; }
+.stage[data-me="me3"] .me-foot .btn { min-height: 20px; line-height: 18px; }
 .stage[data-me="me3"] .n7-box { border: 2px solid #aab6c0; border-radius: 22px / 70px; }
 .stage[data-me="me3"] .n7-box i { font-size: 104px; }
 .stage[data-me="me3"] .me-row.disabled .me-picker-value { border-color: #131c3a; }
