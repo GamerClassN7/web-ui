@@ -192,7 +192,7 @@
   /* Pixel corrections measured with tools/elements.py (best-shift search of each element vs the reference).
      [dx, dy] added to the layout numbers read by eye. Per screen, plus _all for the whole game. */
   var ADJ = {
-    me3: { _all: { desc: [-4, -2], foot: [0, 0] }, graphics: { title: [0, 2] }, keys: { rows: [0, -6] }, gameplay: { rows: [3, -5] }, calibration: { rows: [0, -4] }, controls: { rows: [-1, -1] } },
+    me3: { _all: { desc: [-4, -2], foot: [0, 0] }, graphics: { title: [0, 2], foot: [0, 1] }, keys: { rows: [0, -6], foot: [0, -4] }, gameplay: { rows: [3, -5], foot: [0, -5] }, calibration: { rows: [0, -4], foot: [0, -3] }, controls: { rows: [-1, -1], foot: [0, 1] }, sound: { foot: [0, -1] } },
     me1: { _all: { title: [0, 0], foot: [2, 0], rows: [0, -1] }, graphics: { desc: [0, -7] } },
     me2: { _all: { foot: [0, 4], title: [2, 0] }, graphics: { rows: [0, 0] }, keys: { rows: [-1, 0] }, calibration: { rows: [-1, -1], desc: [3, 0] }, gameplay: { rows: [-4, 1] }, sound: { rows: [0, 0] } }
   };

@@ -543,9 +543,9 @@ html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .
   box-shadow: none !important; outline-color: rgb(143 214 236 / 38%);
   border-radius: 1px 1px 1px 1px;
 }
-html[data-me="me3"] .btn-group > :first-child:not(:only-child) { border-radius: 1px 1px 1px 20px !important; }
-html[data-me="me3"] .btn-group > :last-child:not(:only-child)  { border-radius: 1px 1px 20px 1px !important; }
-html[data-me="me3"] .btn-group > :only-child  { border-radius: 1px 1px 22px 22px !important; }
+html[data-me="me3"] .btn-group:not(.me-onoff) > :first-child:not(:only-child) { border-radius: 1px 1px 1px 20px !important; }
+html[data-me="me3"] .btn-group:not(.me-onoff) > :last-child:not(:only-child)  { border-radius: 1px 1px 20px 1px !important; }
+html[data-me="me3"] .btn-group:not(.me-onoff) > :only-child  { border-radius: 1px 1px 22px 22px !important; }
 html[data-me="me3"] .btn-solid:not(.btn-group > *) { border-radius: 1px 1px 14px 1px !important; }
 
 /* ME3 arrow glow, measured: saturated blue (#3c9afc) hugging the edge, falling to #122c62 ~3px out */
