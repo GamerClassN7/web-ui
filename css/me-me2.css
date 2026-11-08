@@ -1,0 +1,130 @@
+/* ==========================================================================
+   ME2-specific widget anatomy (loaded after me-theme.css + me-widgets.css)
+   Measured from refs/me2/ea/*.png (official EA PNGs) and refs/me2/appearance-1080.png.
+   ========================================================================== */
+[data-me="me2"][data-bs-theme="dark"] {
+  --me-peach: #ffb866;        /* [m] signature orange: On box, slider bar, drop button */
+  --me-peach-edge: #e5a55c;   /* [m] orange box border */
+  --me-lime: #aaff66;         /* [m] "Options" title, active bits */
+  --me-lime-bar: #aaff65;     /* [m] active slider bar / active On-Off box */
+  --me-row-text: #d29755;     /* [m] row labels on the Options screens */
+  --me-value-text: #edab5f;   /* [m] plain picker value */
+  --me-sub: #4d6a2d;          /* [m] dark-green subtitle */
+  --me-bar-top: #303a21; --me-bar-bot: #45572c; --me-bar-edge: #485a2e;   /* [m] selected green bar */
+  --me-green-box: #527233; --me-green-box-edge: #9be85c; --me-green-drop: #a8fc64;  /* [m] */
+  --me-orange-box: #704f2f;   /* [m] monitor picker box fill */
+  --me-desc-fill: #130607;    /* [m] description box */
+  --me-desc-edge: #8b5830;    /* [d] bright copper rim (outer sample #582818 was the dark side) */
+  --me-foot-fill: #342217; --me-foot-edge: #8b5830; --me-foot-text: #d6ae6c;   /* [m] */
+  --me-off-line: #785532;     /* [m] empty Off box border */
+  --me-dim-green: #1e2712;    /* [m] disabled arrow */
+  --me-dis-text: #282627;     /* [m] disabled label */
+}
+[data-me="me2"][data-bs-theme="light"] {
+  --me-peach: #c8761f; --me-peach-edge: #794617; --me-lime: #41512a; --me-lime-bar: #5b8651;
+  --me-row-text: #4a2709; --me-value-text: #6d3911; --me-sub: #6d8a4b;
+  --me-bar-top: #5b8651; --me-bar-bot: #41512a; --me-bar-edge: #41512a;
+  --me-green-box: #5b8651; --me-green-box-edge: #41512a; --me-green-drop: #aaff65;
+  --me-orange-box: #dfcba6;
+  --me-desc-fill: #f8efdf; --me-desc-edge: #794617;
+  --me-foot-fill: #dfcba6; --me-foot-edge: #794617; --me-foot-text: #4a2709;
+  --me-off-line: #794617; --me-dim-green: #cfb687; --me-dis-text: #a8957c;
+}
+
+/* ---------- rows ---------- */
+[data-me="me2"] .me-row { border-radius: 0; color: var(--me-row-text); }
+[data-me="me2"] .me-row-label { color: var(--me-row-text); }
+[data-me="me2"] .me-row-aside { color: var(--me-row-text); }
+[data-me="me2"] .me-row.disabled .me-row-label, [data-me="me2"] .me-row.disabled .me-row-aside { color: var(--me-dis-text); }
+[data-me="me2"] .me-row.selected {
+  background: repeating-linear-gradient(60deg, rgb(255 255 255 / 3%) 0 3px, transparent 3px 6px), linear-gradient(180deg, var(--me-bar-top), var(--me-bar-bot));
+  border: 1px solid var(--me-bar-edge); box-shadow: 0 0 10px color-mix(in oklch, var(--me-bar-edge) 60%, transparent);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+}
+[data-me="me2"] .me-row.selected .me-row-label { color: #96df59; }          /* [m] */
+[data-me="me2"] .me-row.selected .me-row-aside { color: #8fd455; }          /* [m] */
+
+/* pickers: plain big value (no box) unless .boxed */
+[data-me="me2"] .me-picker { justify-content: space-between; gap: 0; }
+[data-me="me2"] .me-picker-value { background: none; border: 0; box-shadow: none; padding: 0; border-radius: 0; font-size: 1.2rem; color: var(--me-value-text); }
+[data-me="me2"] .me-picker.boxed { justify-content: center; }
+[data-me="me2"] .me-picker.boxed .me-picker-value { flex: 0 0 auto; width: 183px; height: 20px; font-size: .95rem; background: var(--me-orange-box); border: 1px solid var(--me-peach-edge); line-height: 18px; color: #e1a25a; }
+[data-me="me2"] .me-picker.boxed .me-picker-drop { width: 28px; height: 20px; border-radius: 0; background: var(--me-peach); border: 1px solid var(--me-peach-edge); margin-left: 0; }
+[data-me="me2"] .me-picker.boxed .me-picker-drop::after { background: #5a3a16; }
+[data-me="me2"] .me-row.selected .me-picker-value { color: #c4f491; background: none; border: 0; box-shadow: none; }
+[data-me="me2"] .me-row.selected .me-picker.boxed .me-picker-value { background: var(--me-green-box); border-color: var(--me-green-box-edge); color: #e6ffcc; }
+[data-me="me2"] .me-row.selected .me-picker.boxed .me-picker-drop { background: var(--me-green-drop); border-color: var(--me-green-box-edge); }
+[data-me="me2"] .me-row.disabled .me-picker-value { color: #1f3b1b; }
+[data-me="me2"] .me-row.disabled .me-arrow { background: var(--me-dim-green); }
+[data-me="me2"] .me-arrow { background: #f9b364; filter: none; width: 17px; height: 17px; clip-path: polygon(100% 0, 0 50%, 100% 100%); transform: none; }
+[data-me="me2"] .me-arrow.r { clip-path: polygon(0 0, 100% 50%, 0 100%); transform: none; }
+[data-me="me2"] .me-arrow.dim { background: var(--me-dim-green); }
+[data-me="me2"] .me-row.selected .me-arrow, [data-me="me2"] .me-row.selected .me-arrow.r { background: #8acd53; }   /* [m] */
+
+/* On / Off: box + text (active = solid peach, in the selected row = lime) */
+[data-me="me2"] .me-onoff.btn-group.btn-group { justify-content: flex-start; width: auto; margin: 0; gap: 0; }
+[data-me="me2"] .me-onoff.btn-group.btn-group > .btn-check,
+[data-me="me2"] .me-onoff.btn-group.btn-group > .btn-check:has(input:checked) {
+  flex: none; display: flex; align-items: center; justify-content: flex-start; gap: 6px; width: auto; height: auto; min-height: 0; padding: 0; margin: 0;
+  background: none; border: 0; box-shadow: none; border-radius: 0; filter: none; color: var(--me-row-text);
+}
+/* box = inner fill + dark gap + copper outer frame (drawn with rings so the whole thing is 52x18) */
+[data-me="me2"] .me-onoff > .btn-check::before { content: ""; box-sizing: border-box; width: 46px; height: 12px; margin: 3px; background: #0f080b; border: 1px solid #473220; box-shadow: 0 0 0 2px #0f080b, 0 0 0 3px var(--me-off-line); }
+/* Off = one thin copper frame only (52x18), no inner ring */
+[data-me="me2"] .me-onoff > .btn-check:not(:has(input:checked))::before { width: 52px; height: 18px; margin: 0; border: 1px solid var(--me-off-line); box-shadow: none; }
+[data-me="me2"] .me-onoff > .btn-check:has(input:checked)::before { background: var(--me-peach); border-color: #523924; box-shadow: 0 0 0 2px #0f080b, 0 0 0 3px #8b5830; }
+[data-me="me2"] .me-row.selected .me-onoff > .btn-check:has(input:checked)::before { background: var(--me-lime-bar); border-color: #3f5a2a; box-shadow: 0 0 0 2px #1d2812, 0 0 0 3px #5b8651; }
+[data-me="me2"] .me-row.selected .me-onoff > .btn-check { color: #8fd455; }
+
+/* sliders (ME2 sound/controls): peach bar, left+right arrows */
+/* peach bar with a dark brown frame + thin copper inner line; square cap thumb slightly taller than the bar */
+html[data-me="me2"] .form-range { --bs-range-track-height: 14px; --bs-range-thumb-width: 12px; --bs-range-thumb-height: 18px; --bs-range-track-bg: #14080b; --bs-range-track-fill-bg: var(--me-peach); }
+html[data-me="me2"] .form-range-input::-webkit-slider-runnable-track { border: 2px solid; border-color: #7e5a35 #7e5a35 #af7e47 #7e5a35; box-shadow: inset 0 0 0 1px #af7e47; }   /* [m] top #7e5a35 / bottom #af7e47 */
+html[data-me="me2"] .form-range-input::-moz-range-track { border: 2px solid #7e5a35; }
+html[data-me="me2"] .form-range-input::-webkit-slider-thumb { background: var(--me-peach); border: 2px solid #af7e47; border-radius: 1px; box-shadow: 0 0 0 1px #523924; }
+html[data-me="me2"] .form-range-input::-moz-range-thumb { background: var(--me-peach); border: 2px solid #af7e47; border-radius: 1px; }
+/* WebKit positions the thumb from the track's CONTENT box, so the 2px track border pushes it 2px down; compensate to centre it */
+html[data-me="me2"] .form-range-input::-webkit-slider-thumb { margin-top: calc((var(--bs-range-track-height) - var(--bs-range-thumb-height)) / 2 - 2px); }
+html[data-me="me2"] .form-range.theme-success, html[data-me="me2"] .me-row.selected .form-range { --bs-range-track-fill-bg: var(--me-lime-bar); --bs-range-thumb-bg: var(--me-lime-bar); }
+html[data-me="me2"] .me-row.selected .form-range-input::-webkit-slider-runnable-track { border-color: #5b8651; box-shadow: inset 0 0 0 1px #8acd53; }
+html[data-me="me2"] .me-row.selected .form-range-input::-webkit-slider-thumb { background: var(--me-lime-bar); border-color: #8acd53; }
+/* arrows: peach triangle with a darker outline offset (hollow look) */
+html[data-me="me2"] .me-arrow { background: #f9b364; filter: none; }   /* [m] ref arrow fill #f9b364 (the hollow outline comes from the SVG itself) */
+html[data-me="me2"] .me-row.selected .me-arrow { background: #8acd53; filter: none; }
+
+/* description box = octagonal, copper rim */
+[data-me="me2"] .me-desc {
+  background: var(--me-desc-fill); color: #d2aa69; border: 2px solid var(--me-desc-edge); border-radius: 18px; padding: 0 22px;
+  display: flex; align-items: center;
+  box-shadow: inset 0 0 0 2px var(--me-desc-fill), inset 0 0 0 3px color-mix(in oklch, var(--me-desc-edge) 70%, transparent), inset 0 0 16px rgb(120 60 20 / 35%), 0 0 10px rgb(139 88 48 / 25%);
+}
+@supports (corner-shape: bevel) { [data-me="me2"] .me-desc { corner-shape: bevel; } }
+
+/* footer "Reset to Defaults" tab */
+[data-me="me2"] .me-foot.btn-group { gap: 0; }
+[data-me="me2"] .me-foot .btn, [data-me="me2"] .me-foot.btn-group > [class*="btn-"] {
+  background: repeating-linear-gradient(60deg, rgb(255 255 255 / 1.5%) 0 3px, transparent 3px 6px), var(--me-foot-fill); color: var(--me-foot-text); border: 0; border-radius: 0; font-size: 13px;
+  box-shadow: inset 0 0 0 2px #a8632f, inset 0 0 0 4px var(--me-foot-fill), inset 0 0 0 5px #6d4426;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 14% 100%, 0 42%);   /* the game's tab: only the bottom-left corner is cut */
+}
+
+/* ---- refinements from zoomed comparison with refs/me2/ea/graphics-picture-1.png ---- */
+/* the Options-screen selected row is DARK olive with brighter green edges (not a solid green bar) */
+html[data-me="me2"] .me-row.selected {
+  background: repeating-linear-gradient(180deg, rgb(255 255 255 / 2%) 0 1px, transparent 1px 3px), linear-gradient(180deg, #303a21 0, #27281a 30%, #242618 70%, #45572c 100%);   /* [m] */
+  border: 1px solid #485a2e; box-shadow: 0 0 6px rgb(110 190 70 / 25%);
+}
+html[data-me="me2"] .me-picker.boxed .me-picker-value { font-size: .77rem; font-weight: 400; }
+html[data-me="me2"] .me-picker:not(.boxed) .me-picker-value { font-size: 1.3rem; }
+html[data-me="me2"] .me-row.selected .me-picker.boxed .me-picker-value { border: 1px solid #6cc34a; border-left: 3px solid #9be85c; color: #a8f06b; }
+html[data-me="me2"] .me-row.selected .me-picker.boxed .me-picker-drop { background: #66bd48; border-color: #9be85c; }
+html[data-me="me2"] .me-row.selected .me-picker.boxed .me-picker-drop::after { background: #b4f27a; width: 9px; height: 6px; }
+html[data-me="me2"] .me-picker.boxed .me-picker-drop { background: #c9955a; border-color: #e5a55c; }
+html[data-me="me2"] .me-picker.boxed .me-picker-drop::after { background: #f6c58a; width: 9px; height: 6px; }
+
+/* key bindings (ME2): orange header bar, rows with bracket corners */
+[data-me="me2"] .me-keys-head { background: linear-gradient(180deg, #6b4224, #3d2616); color: #e8c79a; border: 1px solid #a8632f; border-radius: 0; font-family: var(--me-font-body); font-size: .95rem; letter-spacing: 0; }
+[data-me="me2"] .me-keys .me-row { border-bottom: 1px solid rgb(139 88 48 / 25%); }
+[data-me="me2"] .me-keys .me-row.selected { background: rgb(80 110 40 / 28%); border: 1px solid #5b8651; clip-path: none; }
+[data-me="me2"] .key-cell { position: relative; display: block; text-align: center; border-top: 1px solid rgb(229 165 92 / 40%); }
+[data-me="me2"] .me-keys-cols { color: var(--me-lime); }

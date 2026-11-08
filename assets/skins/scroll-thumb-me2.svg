@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME2 scrollbar thumb 11x46: translucent orange pentagon starting at the track line (top slants down to the right, bottom slants up to the right), pale cyan-green cap. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="11" height="46" viewBox="0 0 11 46">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f0b46a" stop-opacity=".75"/><stop offset="1" stop-color="#d98a3a" stop-opacity=".95"/></linearGradient></defs>
+  <rect x="0" y="0" width="3" height="6" fill="#bff0e6"/>
+  <path d="M.5 6 10.5 12V34L.5 41Z" fill="url(#g)" stroke="#ffb458" stroke-width="1" stroke-linejoin="round"/>
+</svg>

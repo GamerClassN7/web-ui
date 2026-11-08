@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME3 scrollbar thumb 12x42: half-lens, flat left edge sits ON the track line; dark red top -> bright red bottom, glowing rim, white cap. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="42" viewBox="0 0 12 42">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a060c"/><stop offset=".55" stop-color="#8e1010"/><stop offset="1" stop-color="#e01808"/></linearGradient></defs>
+  <rect x="0" y="0" width="3" height="3" fill="#fff9ef"/>
+  <path d="M.6 4.5C8 6.5 11.4 13.5 11 22.5 10.6 31 7 37.5 .6 39.4Z" fill="url(#g)" stroke="#f0482c" stroke-width="1.2" stroke-linejoin="round"/>
+</svg>

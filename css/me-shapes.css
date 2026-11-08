@@ -1,0 +1,536 @@
+/* ==========================================================================
+   Shapes: SVG arrow icons + symmetric button radii.   Load LAST (after me-me1.css / me-me2.css).
+   The arrow SVGs also live as files in assets/icons/ (arrow-me1|me2|me3.svg); they are inlined here as
+   data-URIs so the page works when opened straight from disk (Chrome blocks file:// mask images).
+   ========================================================================== */
+
+html[data-me="me3"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 28' preserveAspectRatio='none'%3E%3Cpath d='M15 3C9.5 5 4 9 1 14C4 19 9.5 23 15 25Q13.4 14 15 3Z'/%3E%3Cpath fill='none' stroke='black' stroke-width='1.1' stroke-linecap='round' d='M15.6 8.5L18.8 7.4Q17.4 16 18.6 25M6 19.5Q12 24.5 18.2 26'/%3E%3C/svg%3E"); }
+html[data-me="me2"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2224%22 viewBox=%220 0 20 24%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M15 2 1 12 15 22Z%22/%3E%3Cpath fill=%22none%22 stroke=%22black%22 stroke-opacity=%22.55%22 stroke-width=%221.4%22 stroke-linejoin=%22round%22 d=%22M18.6 6 8.4 12.8 18.6 19.6Z%22/%3E%3C/svg%3E"); }
+html[data-me="me1"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 13' preserveAspectRatio='none'%3E%3Cpath d='M11 0 0 6.5 11 13z'/%3E%3C/svg%3E"); }
+
+/* one icon system for all three games: the shape is a mask, the colour is the element background (state colours) */
+html[data-me] .me-arrow.me-arrow {
+  clip-path: none; transform: none;
+  -webkit-mask: var(--me-arrow-mask) center / 100% 100% no-repeat;
+          mask: var(--me-arrow-mask) center / 100% 100% no-repeat;
+}
+html[data-me] .me-arrow.me-arrow.r { transform: scaleX(-1); }        /* right arrow = mirrored left arrow */
+html[data-me="me3"] .me-arrow.me-arrow { width: 17px; height: 24px; filter: drop-shadow(0 0 5px #2f8bff); }
+html[data-me="me2"] .me-arrow.me-arrow { width: 19px; height: 19px; filter: none; }
+html[data-me="me1"] .me-arrow.me-arrow { width: 11px; height: 13px; filter: none; }
+
+/* The dropdown "▼" in a select/picker is the SAME icon as the arrows, just rotated (left arrow turned 90° counter-clockwise).
+   Same mask variable => one SVG per game, no separate triangle. */
+html[data-me] .me-picker-drop::after {
+  content: ""; clip-path: none; transform: rotate(-90deg);
+  -webkit-mask: var(--me-arrow-mask) center / 100% 100% no-repeat;
+          mask: var(--me-arrow-mask) center / 100% 100% no-repeat;
+}
+html[data-me="me3"] .me-picker-drop::after { width: 15px; height: 21px; }
+html[data-me="me3"] .me-picker-drop { background: linear-gradient(180deg, #e2b26a, #a8743a); border: 1px solid #f3c27a; box-shadow: inset 0 0 6px rgb(255 220 150 / 35%); }   /* glassy peach, like the game */
+html[data-me="me2"] .me-picker-drop::after { width: 13px; height: 16px; }
+html[data-me="me1"] .me-picker-drop::after { width: 8px; height: 10px; }
+
+/* Buttons / badges without a theme-* class had NO colour tokens (outline lost its border, solid lost its fill).
+   Default them to the primary theme so every button is visible in every style. */
+html[data-me] :is(.btn, .btn-solid, .btn-outline, .btn-subtle, .btn-link, .btn-text, .badge, .chip):not([class*="theme-"]) {
+  --bs-theme-base: var(--bs-primary-base); --bs-theme-fg: var(--bs-primary-fg); --bs-theme-fg-emphasis: var(--bs-primary-fg-emphasis);
+  --bs-theme-bg: var(--bs-primary-bg); --bs-theme-bg-subtle: var(--bs-primary-bg-subtle); --bs-theme-bg-muted: var(--bs-primary-bg-muted);
+  --bs-theme-border: var(--bs-primary-border); --bs-theme-focus-ring: var(--bs-primary-focus-ring); --bs-theme-contrast: var(--bs-primary-contrast);
+}
+/* close button: Bootstrap draws it as a currentColor mask — the old invert() filter turned it dark on dark */
+html[data-me] .btn-close { filter: none; color: var(--bs-fg-1); opacity: .85; }
+html[data-me] .btn-close:hover { opacity: 1; }
+/* ME1 paints every .btn-solid blue; keep the semantic variants in their own colour */
+html[data-me="me1"] .btn-solid.theme-danger  { background-image: linear-gradient(180deg, #b8421f, #7a2410); border-color: #e0653a; color: #ffe3d2; }
+html[data-me="me1"] .btn-solid.theme-success { background-image: linear-gradient(180deg, #2f8f62, #1f6b4a); border-color: #4fbf8a; color: #d6fbe8; }
+html[data-me="me1"] .btn-solid.theme-danger:hover, html[data-me="me1"] .btn-solid.theme-success:hover { filter: brightness(1.2); }
+
+/* On | Off = a mirrored pair: "On" is curved on the left like "(", "Off" on the right like ")".
+   Top and bottom radii are IDENTICAL (elliptical corner), the straight sides get a tiny radius. */
+html[data-me="me3"] .me-onoff.btn-group.btn-group > .btn-check:first-child { border-radius: 7px 1px 1px 7px / 11px 1px 1px 11px; }
+html[data-me="me3"] .me-onoff.btn-group.btn-group > .btn-check:last-child  { border-radius: 1px 7px 7px 1px / 1px 11px 11px 1px; }
+
+/* Close button: plain "X" glyph (Bootstrap's default icon is a filled rounded square with an X cut out) */
+html[data-me] .btn-close {
+  --bs-btn-close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 3.5l9 9M12.5 3.5l-9 9' stroke='black' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+  border-radius: 0; opacity: .9;
+}
+html[data-me] .btn-close:hover { opacity: 1; }
+
+/* ME1 buttons: flat capsule, no chamfered (octagon) corners */
+html[data-me="me1"] .btn { corner-shape: round; border-radius: 12px; }
+html[data-me="me1"] .btn-group > .btn, html[data-me="me1"] .btn-group > [class*="btn-"] { corner-shape: round; border-radius: 3px; }
+
+/* ---- light-mode fixes: the measured Options-screen text colours are for DARK only ---- */
+html[data-me="me3"][data-bs-theme="light"] .me-row-label { color: var(--bs-fg-body); }
+html[data-me="me3"][data-bs-theme="light"] .me-row.selected .me-row-label { color: #fff3d6; }
+html[data-me="me3"][data-bs-theme="light"] .me-picker-value { color: var(--bs-fg-body); box-shadow: none; }
+html[data-me="me3"][data-bs-theme="light"] .me-row.selected .me-picker-value { color: #fff3d6; }
+html[data-me="me3"][data-bs-theme="light"] .me-desc { color: var(--bs-fg-body); background: linear-gradient(180deg, #a5c6d8, #e3eef5); }
+html[data-me="me3"][data-bs-theme="light"] .me-row.disabled .me-row-label, html[data-me="me3"][data-bs-theme="light"] .me-row.disabled .me-picker-value { color: #9bb0bf; }
+html[data-me="me1"][data-bs-theme="light"] .me-desc { color: #0b2a3f; background: linear-gradient(180deg, #bfe3f2, #e4f1f7); }
+html[data-me="me1"][data-bs-theme="light"] .me-picker-value { color: #0b2a3f; }
+
+/* ME1 checkboxes/radios are square-edged */
+html[data-me="me1"] .check { border-radius: 2px; }
+
+/* ---- ME2 light fixes ---- */
+html[data-me="me2"][data-bs-theme="light"] .me-wheel a { color: #fbe9c6; }
+html[data-me="me2"][data-bs-theme="light"] .me-wheel a.active { color: #c0ecbd; }
+html[data-me="me2"][data-bs-theme="light"] .me-row.selected {
+  background: repeating-linear-gradient(60deg, rgb(255 255 255 / 4%) 0 3px, transparent 3px 6px), linear-gradient(180deg, #5b8651, #41512a);
+  border-color: #41512a; box-shadow: none;
+}
+html[data-me="me2"][data-bs-theme="light"] .me-row.selected .me-row-label { color: #e6ffcc; }
+html[data-me="me2"][data-bs-theme="light"] .accordion-item[open] > .accordion-header { color: #fbe9c6; }
+html[data-me="me2"][data-bs-theme="light"] .me-row-label, html[data-me="me2"][data-bs-theme="light"] .me-row { color: #4a2709; }
+html[data-me="me2"] .me-onoff.btn-group.btn-group { gap: 28px; }
+html[data-me="me1"] .accordion-item[open] > .accordion-header { color: #ff8d3e; }
+html[data-me="me1"][data-bs-theme="light"] .accordion-item[open] > .accordion-header { color: #ffe3c9; }
+html[data-me="me3"][data-bs-theme="light"] .me-onoff.btn-group.btn-group > .btn-check { color: #0e3955; }
+html[data-me="me3"][data-bs-theme="light"] .me-onoff.btn-group.btn-group > .btn-check:has(input:checked) { color: #fff; }
+
+/* ==========================================================================
+   RADIUS SCALE (measured from computed styles, then unified; border width is 1px everywhere)
+   ME3 : soft + one big lower-right curve   -> small 4/4/12, control 4/4/22, panel 6/6/22
+   ME2 : chamfer (bevel)                    -> small 6, control 10, panel 14
+   ME1 : flat glass panels, tiny radius     -> 0 for panels, 2 small, 12 only for single capsule buttons
+   ========================================================================== */
+/* dialogs / cards / menus clip their header & body to the rounded/chamfered corner */
+html[data-me] :is(.dialog, .toast, .popover, .menu, .card, .accordion-item) { overflow: hidden; }
+
+/* ---- ME3 ---- */
+html[data-me="me3"] :is(.btn-subtle, .toast, .menu, .popover, .dialog) { border-radius: 4px 4px 22px 4px; }
+html[data-me="me3"] .card { border-radius: 6px 6px 22px 6px; }
+html[data-me="me3"] :is(.badge, .chip) { border-radius: 4px 4px 12px 4px; }
+html[data-me="me3"] .tooltip-inner { border-radius: 4px 4px 12px 4px; }
+html[data-me="me3"] .accordion-item { border-radius: 6px 6px 0 0; }
+html[data-me="me3"] .accordion-item:last-of-type { border-radius: 0 0 6px 22px; }
+html[data-me="me3"] .nav-tabs .nav-link.active { border-radius: 14px 14px 0 0; }
+html[data-me="me3"] .nav-pills .nav-link, html[data-me="me3"] .nav-pills .nav-link.active { border-radius: 4px 4px 14px 4px; }
+html[data-me="me3"] .page-link { border-radius: 0; }
+html[data-me="me3"] .page-item:first-child .page-link { border-radius: 4px 0 0 4px; }
+html[data-me="me3"] .page-item:last-child .page-link { border-radius: 0 4px 12px 0; }
+html[data-me="me3"] .progress { border-radius: 4px 4px 4px 12px; }
+html[data-me="me3"] .btn-group-vertical > :first-child { border-radius: 4px 4px 0 0; }
+html[data-me="me3"] .btn-group-vertical > :last-child { border-radius: 0 0 4px 22px; }
+html[data-me="me3"] .btn-group-vertical > :not(:first-child):not(:last-child) { border-radius: 0; }
+
+/* ---- ME2 (bevel everywhere it is a surface) ---- */
+@supports (corner-shape: bevel) {
+  html[data-me="me2"] :is(.toast, .popover, .menu, .tooltip-inner, .chip, .nav-pills .nav-link, .page-link, .progress, .accordion-item, .list-group-item) { corner-shape: bevel; }
+  html[data-me="me2"] :is(.toast, .popover, .menu, .dialog) { border-radius: 14px; }
+  html[data-me="me2"] :is(.tooltip-inner, .badge, .chip) { border-radius: 8px; }
+  html[data-me="me2"] .nav-pills .nav-link, html[data-me="me2"] .nav-pills .nav-link.active { border-radius: 10px; }
+  html[data-me="me2"] .accordion-item { border-radius: 10px 10px 0 0; }
+  html[data-me="me2"] .accordion-item:last-of-type { border-radius: 0 0 10px 10px; }
+  html[data-me="me2"] .progress { border-radius: 0; }
+}
+
+/* ---- ME1 (flat) ---- */
+html[data-me="me1"] :is(.card, .alert, .dialog, .toast, .popover, .menu, .accordion-item, .me-panel) { corner-shape: round; border-radius: 0; }
+html[data-me="me1"] :is(.form-control, .input-group-text, .badge, .tooltip-inner, .page-link, .list-group-item, .nav-link, .nav-pills .nav-link, .nav-pills .nav-link.active, .chip) { corner-shape: round; border-radius: 2px; }
+html[data-me="me1"] .btn-subtle { corner-shape: round; border-radius: 12px; }
+html[data-me="me1"] .nav-tabs .nav-link.active { corner-shape: round; border-radius: 0; }
+html[data-me="me1"] .btn-group-vertical > [class*="btn-"] { border-radius: 3px; }
+html[data-me="me1"] .input-group > .btn { border-radius: 0 12px 12px 0; }
+html[data-me="me1"] .input-group > .form-control:not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+html[data-me="me1"] .progress { border-radius: 0; }
+
+/* static dialog preview must size to its content (Bootstrap caps .dialog at calc(100% - 56px) of its container -> clipped buttons) */
+.me-preview .dialog { height: auto !important; max-height: none !important; overflow: visible; }
+.me-preview .dialog > .dialog-header { border-radius: inherit; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.me-preview .dialog > .dialog-footer { border-radius: inherit; border-top-left-radius: 0; border-top-right-radius: 0; }
+
+/* ==========================================================================
+   BUTTON ORNAMENTS — layered, measured from refs/*/ea (bottom bar) at 5-7x zoom
+   ::before = inner fill / pattern, ::after = thin inner frame.  Applies to neutral buttons
+   (not the semantic danger/success/warning/info ones) and to the footer bars.
+   ========================================================================== */
+html[data-me] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  position: relative; z-index: 0; isolation: isolate;
+}
+html[data-me] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::before,
+html[data-me] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::after {
+  content: ""; position: absolute; pointer-events: none; z-index: -1;
+}
+
+/* ---------- ME3: bright cyan outer line, dark->cyan gradient, thin square inner frame (curved on the outer corner) ---------- */
+html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  background-image: linear-gradient(180deg, #072a47 0%, #0a4468 55%, #0a7ba0 100%) !important;
+  border: 1px solid; border-color: #0e5a88 #0e5a88 #1b8dbb #0e5a88 !important; box-shadow: none !important; color: #8fd6ec;
+}
+html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::after {
+  inset: 4px 4px 5px 4px; border: 1px solid rgb(143 214 236 / 55%); border-radius: 0;
+}
+html[data-me="me3"] .btn-group > :first-child:not(:only-child)::after { border-bottom-left-radius: 24px; }
+html[data-me="me3"] .btn-group > :last-child:not(:only-child)::after  { border-bottom-right-radius: 24px; }
+html[data-me="me3"] .btn-solid:not(.btn-group > *)::after { border-bottom-right-radius: 14px; }
+html[data-me="me3"][data-bs-theme="light"] :is(.btn-solid, .btn-group > .btn):not([class*="theme-"])::after { border-color: rgb(190 235 250 / 55%); }
+
+/* ---------- ME2: copper frame, honeycomb inside, thin inner frame ---------- */
+html[data-me="me2"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  background: linear-gradient(180deg, #d79a5e 0%, #b0703a 50%, #8b5830 100%) !important; border: 0 !important; box-shadow: none !important; color: var(--me-foot-text, #d6ae6c);
+}
+html[data-me="me2"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::before {
+  inset: 2px; border-radius: inherit; corner-shape: inherit;
+  background-color: var(--me-foot-fill, #342217);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='24'%3E%3Cpath d='M7 0 14 4V12L7 16 0 12V4ZM7 16V24' fill='none' stroke='white' stroke-opacity='.075'/%3E%3C/svg%3E");
+}
+html[data-me="me2"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::after {
+  inset: 5px; border: 1px solid rgb(214 150 90 / 30%); border-radius: inherit; corner-shape: inherit;
+}
+/* the footer tab is chamfered ONLY at the bottom-left: clip the layers with the same polygon */
+html[data-me="me2"] .me-foot .btn::before { clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%, 0 40%); }
+html[data-me="me2"] .me-foot .btn::after { clip-path: polygon(0 0, 100% 0, 100% 100%, 17% 100%, 0 46%); border-left-color: transparent; }
+
+/* ---------- ME1: light cyan frame, dark capsule inside, bright "bracket" ends ---------- */
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  background: linear-gradient(90deg, #5fc3ec 0%, #2a8fc0 50%, #5fc3ec 100%) !important; border: 1px solid #38b4ea !important; border-radius: 2px !important; box-shadow: none !important; color: #e3edf2;
+}
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::before {
+  inset: 2px 7px; border-radius: 11px / 50%;
+  background: linear-gradient(180deg, #104679 0%, #12497d 60%, #1b6aa6 100%);
+}
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::after {
+  inset: 0 4px; border: 0; border-top: 1px solid rgb(255 255 255 / 25%);
+}
+
+/* ---- ME2 footer tab: exact diagonal in px (button 165x24, cut from (0,10) to (25,24)), frame follows it ---- */
+html[data-me="me2"] .me-foot .btn { clip-path: polygon(0 0, 100% 0, 100% 100%, 25px 100%, 0 10px) !important; }
+html[data-me="me2"] .me-foot .btn::before {
+  inset: 2px; clip-path: polygon(0 0, 100% 0, 100% 100%, 23.4px 100%, 0 6.5px);
+  background-size: 9px 15.4px;
+}
+html[data-me="me2"] .me-foot .btn::after {
+  inset: 0; border: 0; clip-path: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 165 24' preserveAspectRatio='none'%3E%3Cpath d='M5 6.76 5 5 160 5 160 19 26.2 19Z' fill='none' stroke='%23d6965a' stroke-opacity='.32' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+}
+html[data-me="me2"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::before { background-size: 9px 15.4px; }
+html[data-me="me2"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) { background: linear-gradient(180deg, #e0a468 0%, #b87a42 50%, #8b5830 100%) !important; }
+/* ME2 rim is a soft, thicker copper gradient in the game (not a hairline) */
+html[data-me="me2"] .me-foot .btn::before { inset: 2.5px; box-shadow: inset 0 0 3px rgb(224 164 104 / 35%); }
+
+/* ==========================================================================
+   HOVER = SELECTED LOOK.  In the ME menus the mouse pointer selects the row under it, so :hover uses the
+   same palette as .selected (ME3 red, ME2 olive/green, ME1 orange). Disabled rows never react.
+   ========================================================================== */
+html[data-me="me3"] .me-row:not(.disabled):not(.selected):hover,
+html[data-me="me3"] :is(.list-group-item-action, .menu-item, .nav-pills .nav-link):not(.active):not(.disabled):hover {
+  background: linear-gradient(180deg, var(--me-sel-top) 0%, var(--me-sel-mid) 55%, var(--me-sel-bot) 100%);
+  border-color: #b81c18; box-shadow: 0 0 0 1px #8f1a16, 0 0 7px rgb(255 60 40 / 30%); color: #e8b05a;
+}
+html[data-me="me3"] .me-row:not(.disabled):not(.selected):hover .me-row-label { color: #e8b05a; }
+html[data-me="me3"] .me-row:not(.disabled):not(.selected):hover .me-picker-value { background: var(--me-sel-mid); border-color: #c0392b; color: #ecb55c; }
+html[data-me="me3"] .me-row:not(.disabled):not(.selected):hover .me-arrow:not(.dim) { background: #fff9f0; filter: drop-shadow(0 0 4px #ff5a30); }
+html[data-me="me3"] .me-row:not(.disabled):not(.selected):hover .form-range { background: #6b0611; border-color: #b3211a; --bs-range-thumb-bg: #fff9ef; }
+html[data-me="me3"] .me-row:not(.disabled):not(.selected):hover .form-range-input::-webkit-slider-thumb { background: #fff9ef; border-color: #6b0611; box-shadow: 0 0 0 1px #ff6a3d; }
+html[data-me="me3"] .btn-solid:not([class*="theme-"]):hover, html[data-me="me3"] .btn-group:not(.me-onoff) > .btn:not(.btn-check):not([class*="theme-"]):hover {
+  background-image: linear-gradient(180deg, #3d0e1c 0%, #500916 55%, #9b251a 100%) !important; border-color: #b81c18 !important; color: #e8b05a; filter: none;
+}
+
+html[data-me="me2"] .me-row:not(.disabled):not(.selected):hover,
+html[data-me="me2"] :is(.list-group-item-action, .menu-item, .nav-pills .nav-link):not(.active):not(.disabled):hover {
+  background: repeating-linear-gradient(180deg, rgb(255 255 255 / 2%) 0 1px, transparent 1px 3px), linear-gradient(180deg, #303a21 0, #27281a 30%, #242618 70%, #45572c 100%);
+  border: 1px solid #485a2e; box-shadow: 0 0 6px rgb(110 190 70 / 25%); color: #96df59;
+}
+html[data-me="me2"] .me-row:not(.disabled):not(.selected):hover :is(.me-row-label, .me-row-aside) { color: #96df59; }
+html[data-me="me2"] .me-row:not(.disabled):not(.selected):hover .me-arrow:not(.dim) { background: #8acd53; }
+html[data-me="me2"] .me-row:not(.disabled):not(.selected):hover .form-range { --bs-range-track-fill-bg: var(--me-lime-bar); --bs-range-thumb-bg: var(--me-lime-bar); }
+html[data-me="me2"] .btn-solid:not([class*="theme-"]):hover, html[data-me="me2"] .btn-group:not(.me-onoff) > .btn:not(.btn-check):not([class*="theme-"]):hover {
+  background: linear-gradient(180deg, #8ad060 0%, #5f9a42 50%, #41512a 100%) !important; color: #e6ffcc; filter: none;
+}
+
+html[data-me="me1"] .me-row:not(.disabled):not(.selected):hover,
+html[data-me="me1"] :is(.list-group-item-action, .menu-item, .nav-pills .nav-link):not(.active):not(.disabled):hover {
+  background: linear-gradient(90deg, #834019 0, #4c240f 25%, #3f1e0d 58%, #6e3515 100%); border-top: 1px solid #b56b3f; border-bottom: 1px solid #824018; color: #ff8d3e;
+}
+html[data-me="me1"] .me-row:not(.disabled):not(.selected):hover :is(.me-row-label, .me-row-aside) { color: #ff8d3e; }
+html[data-me="me1"] .me-row:not(.disabled):not(.selected):hover .me-picker-value { background: #3e2b2c; border-color: #a8643a; color: #fff; }
+html[data-me="me1"] .me-row:not(.disabled):not(.selected):hover .me-picker-drop { background: #ff8d3e; border-color: #ffb27a; }
+html[data-me="me1"] .me-row:not(.disabled):not(.selected):hover .me-arrow:not(.dim) { background: #fe8c3e; }
+html[data-me="me1"] .btn-solid:not([class*="theme-"]):hover, html[data-me="me1"] .btn-group:not(.me-onoff) > .btn:not(.btn-check):not([class*="theme-"]):hover {
+  background: linear-gradient(90deg, #ffb27a 0%, #ff8d3e 50%, #ffb27a 100%) !important; border-color: #ff8d3e !important; filter: none; color: #fff;
+}
+/* inner capsule turns dark orange on hover (ME1) */
+html[data-me="me1"] .btn-solid:not([class*="theme-"]):hover::before, html[data-me="me1"] .btn-group:not(.me-onoff) > .btn:not(.btn-check):not([class*="theme-"]):hover::before { background: linear-gradient(180deg, #4c240f, #6e3515); }
+
+/* ==========================================================================
+   ME2 GENERIC BUTTONS — corners that always match.
+   The frame is the button's OWN border (transparent border + border-box gradient), the fill is a padding-box layer
+   and the thin inner line is an inset box-shadow ring: all three follow the same bevel/radius automatically,
+   so no concentric-radius maths and no double corner line. (The footer tab keeps its polygon version above.)
+   ========================================================================== */
+html[data-me="me2"] :is(.btn-solid, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info):not(.me-foot .btn) {
+  border: 2px solid transparent !important;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='24'%3E%3Cpath d='M7 0 14 4V12L7 16 0 12V4ZM7 16V24' fill='none' stroke='white' stroke-opacity='.075'/%3E%3C/svg%3E") 0 0 / 9px 15.4px padding-box,
+    linear-gradient(var(--me-foot-fill, #342217), var(--me-foot-fill, #342217)) padding-box,
+    linear-gradient(180deg, #e0a468 0%, #b87a42 50%, #8b5830 100%) border-box !important;
+  box-shadow: inset 0 0 0 3px var(--me-foot-fill, #342217), inset 0 0 0 4px rgb(214 150 90 / 30%) !important;
+}
+html[data-me="me2"] :is(.btn-solid, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"]):not(.me-foot .btn)::before,
+html[data-me="me2"] :is(.btn-solid, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"]):not(.me-foot .btn)::after { display: none; }
+/* pressed / active = olive green */
+html[data-me="me2"] :is(.btn-solid, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"]):not(.me-foot .btn):is(.active, :active) {
+  background: linear-gradient(180deg, #506c45, #41512a) padding-box, linear-gradient(180deg, #7fae6a, #41512a) border-box !important;
+  box-shadow: inset 0 0 0 3px #41512a, inset 0 0 0 4px rgb(160 230 130 / 30%) !important; color: #c0ecbd;
+}
+/* hover = selected look (olive/green) */
+html[data-me="me2"] :is(.btn-solid, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"]):not(.me-foot .btn):hover:not(.active) {
+  background: linear-gradient(180deg, #2f3b21, #25301a) padding-box, linear-gradient(180deg, #8ad060, #41512a) border-box !important;
+  box-shadow: inset 0 0 0 3px #25301a, inset 0 0 0 4px rgb(160 230 130 / 35%) !important; color: #c0ecbd;
+}
+
+/* anchor for the ornament layers (plain selectors so it always applies) */
+html[data-me] .btn-solid, html[data-me] .me-foot .btn, html[data-me] .btn-group > .btn { position: relative; z-index: 0; isolation: isolate; }
+
+/* ME3 inner frame = outline with negative offset: follows every corner radius automatically (no square frame poking through a curve) */
+html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  outline: 1px solid rgb(143 214 236 / 50%); outline-offset: -5px;
+}
+html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info):focus-visible { outline: 2px solid #8fd6ec; outline-offset: 1px; }
+html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check))::before,
+html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check))::after { display: none; }
+
+/* ME1 inner capsule: straight top/bottom, notched ends (the light "bracket" corners of the game's button) */
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::before {
+  inset: 2px 5px; border-radius: 0; clip-path: polygon(0 0, 100% 0, calc(100% - 3px) 50%, 100% 100%, 0 100%, 3px 50%);
+}
+
+/* ==========================================================================
+   ORNAMENT TUNING v2 (from side-by-side zooms of the footer buttons)
+   ========================================================================== */
+/* ME1: thin bright 1px edge, dark body, and two light gradient end-strips that are cut diagonally at top/bottom */
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  background: linear-gradient(180deg, #0f4a7e 0%, #12497d 55%, #1b6aa6 100%) !important;
+  border: 1px solid #38b4ea !important; border-radius: 0 !important;
+  box-shadow: inset 0 -2px 0 rgb(56 180 234 / 55%) !important;
+}
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::before {
+  display: block; inset: 0 auto 0 0; width: 9px; border-radius: 0; background: linear-gradient(90deg, rgb(150 215 245 / 85%), rgb(150 215 245 / 8%));
+  clip-path: polygon(0 0, 100% 3px, 100% calc(100% - 3px), 0 100%);
+}
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::after {
+  display: block; inset: 0 0 0 auto; width: 9px; border: 0; background: linear-gradient(270deg, rgb(150 215 245 / 85%), rgb(150 215 245 / 8%));
+  clip-path: polygon(100% 0, 0 3px, 0 calc(100% - 3px), 100% 100%);
+}
+
+/* ME2: softer, thicker copper rim, fainter inner line and honeycomb */
+html[data-me="me2"] .me-foot .btn::before { inset: 3px; box-shadow: inset 0 0 4px rgb(224 164 104 / 28%); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='24'%3E%3Cpath d='M7 0 14 4V12L7 16 0 12V4ZM7 16V24' fill='none' stroke='white' stroke-opacity='.04'/%3E%3C/svg%3E"); }
+html[data-me="me2"] .me-foot .btn { background: linear-gradient(180deg, #cf9358 0%, #a56a38 50%, #7d4e2b 100%) !important; }
+html[data-me="me2"] .me-foot .btn::after { opacity: .6; }
+html[data-me="me2"] :is(.btn-solid, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"]):not(.me-foot .btn) {
+  box-shadow: inset 0 0 0 3px var(--me-foot-fill, #342217), inset 0 0 0 4px rgb(214 150 90 / 20%) !important;
+}
+
+/* ME3: fainter inner frame, brighter lower edge */
+html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  outline-color: rgb(143 214 236 / 30%);
+  box-shadow: inset 0 -2px 0 rgb(31 177 220 / 45%) !important;
+}
+
+/* ==========================================================================
+   SCROLLBARS (vertical + horizontal) — the game's thin track line with a pill/block thumb
+   ME3: 2px track #451c21, pill thumb fill #760d11 + 2px #fc5732 ring
+   ME2: 2px track #5b8651, olive pill thumb #41512a + #5b8651 ring
+   ME1: 8px track #325589, square thumb #55aadf        (all [m] from the EA PNGs)
+   ========================================================================== */
+html[data-me] { --sb-track: #451c21; --sb-thumb: #760d11; --sb-ring: #fc5732; --sb-w: 14px; }
+html[data-me="me2"] { --sb-track: #5b8651; --sb-thumb: #41512a; --sb-ring: #5b8651; }
+html[data-me="me1"] { --sb-track: #325589; --sb-thumb: #55aadf; --sb-ring: #55aadf; --sb-w: 12px; }
+html[data-me="me3"][data-bs-theme="light"] { --sb-track: #c3dbe8; --sb-thumb: #ac1e18; }
+html[data-me="me2"][data-bs-theme="light"] { --sb-track: #cfb687; }
+html[data-me="me1"][data-bs-theme="light"] { --sb-track: #a5c6d8; --sb-thumb: #2d95c4; --sb-ring: #2d95c4; }
+
+/* Chrome ignores ::-webkit-scrollbar when scrollbar-color/width are set, so the standard properties are Firefox-only */
+@supports not selector(::-webkit-scrollbar) { html[data-me], html[data-me] * { scrollbar-color: var(--sb-thumb) transparent; scrollbar-width: thin; } }
+html[data-me] ::-webkit-scrollbar { width: var(--sb-w); height: var(--sb-w); }
+html[data-me] ::-webkit-scrollbar-corner { background: transparent; }
+/* track = thin centred line (vertical: left-right gradient, horizontal: top-bottom) */
+html[data-me] ::-webkit-scrollbar-track:vertical   { background: linear-gradient(90deg, transparent calc(50% - 1px), var(--sb-track) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
+html[data-me] ::-webkit-scrollbar-track:horizontal { background: linear-gradient(180deg, transparent calc(50% - 1px), var(--sb-track) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
+html[data-me] ::-webkit-scrollbar-thumb { background: var(--sb-thumb); border: 2px solid var(--sb-ring); background-clip: padding-box; min-height: 34px; min-width: 34px; }
+html[data-me="me3"] ::-webkit-scrollbar-thumb, html[data-me="me2"] ::-webkit-scrollbar-thumb { border-radius: 8px; }
+html[data-me="me2"] ::-webkit-scrollbar-thumb { border-radius: 8px; box-shadow: none; }
+html[data-me="me1"] ::-webkit-scrollbar-track { background: var(--sb-track); }
+html[data-me="me1"] ::-webkit-scrollbar-thumb { border: 0; border-radius: 0; }
+html[data-me] ::-webkit-scrollbar-thumb:hover { filter: brightness(1.3); }
+html[data-me] ::-webkit-scrollbar-button { display: none; }
+
+/* scroll demo area */
+.me-scrollbox { max-height: 11rem; max-width: 100%; overflow: auto; padding: .75rem 1rem; border: 1px solid var(--bs-border-color); background: var(--me-picker-bg, transparent); }
+.me-scrollbox > div { width: 130rem; }
+
+/* ME1 button = SVG 9-slice skin (assets/skins/btn-me1.svg): corners keep their exact shape at any width */
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  background: none !important; border: 0 solid transparent !important; box-shadow: none !important; padding-inline: 14px;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2224%22 viewBox=%220 0 40 24%22 preserveAspectRatio=%22none%22%3E%0A  %3Cdefs%3E%0A    %3ClinearGradient id=%22b%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%230f4a7e%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%2312497d%22/%3E%3Cstop offset=%221%22 stop-color=%22%231b6aa6%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22l%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%2396d7f5%22 stop-opacity=%22.9%22/%3E%3Cstop offset=%221%22 stop-color=%22%2396d7f5%22 stop-opacity=%22.05%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22r%22 x1=%221%22 y1=%220%22 x2=%220%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%2396d7f5%22 stop-opacity=%22.9%22/%3E%3Cstop offset=%221%22 stop-color=%22%2396d7f5%22 stop-opacity=%22.05%22/%3E%3C/linearGradient%3E%0A  %3C/defs%3E%0A  %3Crect x=%22.5%22 y=%22.5%22 width=%2239%22 height=%2223%22 fill=%22url(%23b)%22 stroke=%22%2338b4ea%22/%3E%0A  %3Cpath d=%22M1 1H11L9 5V19L11 23H1Z%22 fill=%22url(%23l)%22/%3E%0A  %3Cpath d=%22M39 1H29L31 5V19L29 23H39Z%22 fill=%22url(%23r)%22/%3E%0A  %3Crect x=%221%22 y=%2221.5%22 width=%2238%22 height=%221.5%22 fill=%22%2338b4ea%22 opacity=%22.55%22/%3E%0A%3C/svg%3E") 0 14 0 14 fill / 0 14px 0 14px stretch !important;
+}
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"])::before,
+html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"])::after { display: none !important; }
+
+/* ==========================================================================
+   SVG FRAME SKINS (assets/skins/*.svg, 9-slice): exact game ornaments left/right/corners at any size
+   ========================================================================== */
+html[data-me="me2"] .me-desc {
+  background: none !important; border: 0 solid transparent !important; box-shadow: none !important; border-radius: 0 !important; clip-path: none !important;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2248%22 viewBox=%220 0 80 48%22%3E%0A  %3Cdefs%3E%3ClinearGradient id=%22r%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23c98a52%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%238b5830%22/%3E%3Cstop offset=%221%22 stop-color=%22%23b9703a%22/%3E%3C/linearGradient%3E%0A  %3CradialGradient id=%22g%22 cx=%22.5%22 cy=%22.5%22 r=%22.7%22%3E%3Cstop offset=%22.6%22 stop-color=%22%23130607%22/%3E%3Cstop offset=%221%22 stop-color=%22%232a1208%22/%3E%3C/radialGradient%3E%3C/defs%3E%0A  %3Cpath d=%22M17 1H63L79 17V31L63 47H17L1 31V17Z%22 fill=%22url(%23g)%22 stroke=%22url(%23r)%22 stroke-width=%222%22/%3E%0A  %3Cpath d=%22M17.5 5H62.5L75 17.5V30.5L62.5 43H17.5L5 30.5V17.5Z%22 fill=%22none%22 stroke=%22%238b5830%22 stroke-opacity=%22.55%22 stroke-width=%221%22/%3E%0A%3C/svg%3E") 20 fill / 20px stretch !important; padding-inline: 26px;
+}
+html[data-me="me1"] :is(.me-desc, .me1-head) {
+  background: none !important; border: 0 solid transparent !important; box-shadow: none !important; border-radius: 0 !important; clip-path: none !important;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%0A  %3Cdefs%3E%3ClinearGradient id=%22p%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23101f37%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23133555%22/%3E%3Cstop offset=%221%22 stop-color=%22%23144f86%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A  %3Cpath d=%22M.5 .5H39.5V27.5L27.5 39.5H.5Z%22 fill=%22url(%23p)%22 stroke=%22%234093ae%22/%3E%0A%3C/svg%3E") 14 fill / 14px stretch !important;
+}
+
+html[data-me="me1"] .me1-head { border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%0A  %3Cdefs%3E%3ClinearGradient id=%22p%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%230f212b%22/%3E%3Cstop offset=%221%22 stop-color=%22%23183944%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A  %3Cpath d=%22M.5 .5H39.5V27.5L27.5 39.5H.5Z%22 fill=%22url(%23p)%22 stroke=%22%232d677b%22/%3E%0A%3C/svg%3E") 14 fill / 14px stretch !important; }
+
+/* ME1 On/Off box: 2px blue ring -> 2px dark gap -> FLAT fill (no gradient), bold label */
+html[data-me="me1"] .me-onoff > .btn-check::before {
+  box-sizing: border-box; width: 52px; height: 20px; border: 2px solid #2678a0;
+  background: #2d95c4; box-shadow: inset 0 0 0 2px #0b0f1e;
+}
+html[data-me="me1"] .me-onoff > .btn-check:has(input:checked)::before { background: #2d95c4; border-color: #2678a0; }
+html[data-me="me1"] .me-onoff.btn-group.btn-group > .btn-check:last-child:has(input:checked)::before { background: #0f2a3d; box-shadow: inset 0 0 0 2px #0b0f1e; }
+html[data-me="me1"] .me-onoff.btn-group.btn-group > .btn-check { font-weight: 700; text-shadow: 0 0 6px rgb(45 149 196 / 60%); }
+html[data-me="me1"] .me-row.selected .me-onoff > .btn-check::before { border-color: #a8643a; background: #ff8d3e; box-shadow: inset 0 0 0 2px #1a0d05; }
+html[data-me="me1"] .me-onoff > .btn-check::before { width: 51px; height: 20px; border: 1px solid #2a6f93; box-shadow: inset 0 0 0 2px #0e1428; }
+html[data-me="me1"] .me-onoff.btn-group.btn-group > .btn-check:last-child:has(input:checked)::before { box-shadow: inset 0 0 0 2px #0e1428; }
+html[data-me="me1"] .me-onoff.btn-group.btn-group > .btn-check { font-family: "Orbitron", "Michroma", sans-serif; font-weight: 700; font-size: 15px; }
+html[data-me="me1"] .me-onoff > .btn-check::before { box-shadow: inset 0 0 0 1.5px #0e1428; }
+html[data-me="me1"] .me-onoff.btn-group.btn-group > .btn-check { font-size: 16px; letter-spacing: .04em; }
+
+/* ME1 picker (measured from refs/me1/ea/graphics): dark teal body, bright 1px frame, translucent drop button with a light arrow */
+html[data-me="me1"] .me-picker-value { background: #1b4a66; border: 1px solid #2678a0; color: #2d95c4; }
+html[data-me="me1"] .me-picker-drop { background: rgb(45 148 195 / 52%); border: 1px solid rgb(45 148 195 / 60%); }
+html[data-me="me1"] .me-picker-drop::after { background: #4fb0d8; opacity: .9; }
+html[data-me="me1"] .me-row.selected .me-picker-value { background: #3b2a2b; border: 1px solid #f5883c; border-left-width: 2px; color: #fff; }
+html[data-me="me1"] .me-row.selected .me-picker-drop { background: rgb(255 141 62 / 72%); border-color: rgb(255 178 122 / 70%); }
+html[data-me="me1"] .me-row.selected .me-picker-drop::after { background: #fff; opacity: 1; }
+html[data-me="me1"] .me-row.disabled .me-picker-value { background: #16354c; border-color: #1d4d6a; }
+html[data-me="me1"] .me-row.disabled .me-picker-drop { background: rgb(45 148 195 / 25%); border-color: transparent; }
+html[data-me="me1"] .me-picker-drop { border: 0 !important; }
+html[data-me="me1"] .me-picker-drop::after { opacity: .6; }
+html[data-me="me1"] .me-row.selected .me-picker-drop::after { opacity: 1; }
+
+/* ==========================================================================
+   LIGHT-MODE VARIANTS of the SVG skins + widget anatomy (same geometry, light palette) so every element
+   has the identical construction in all 3 styles x 2 modes
+   ========================================================================== */
+html[data-me="me2"][data-bs-theme="light"] .me-desc { border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2248%22 viewBox=%220 0 80 48%22%3E%0A  %3Cdefs%3E%3ClinearGradient id=%22r%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23a8632f%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%23794617%22/%3E%3Cstop offset=%221%22 stop-color=%22%238f5222%22/%3E%3C/linearGradient%3E%0A  %3CradialGradient id=%22g%22 cx=%22.5%22 cy=%22.5%22 r=%22.7%22%3E%3Cstop offset=%22.6%22 stop-color=%22%23fbf5ea%22/%3E%3Cstop offset=%221%22 stop-color=%22%23ecdfc6%22/%3E%3C/radialGradient%3E%3C/defs%3E%0A  %3Cpath d=%22M17 1H63L79 17V31L63 47H17L1 31V17Z%22 fill=%22url(%23g)%22 stroke=%22url(%23r)%22 stroke-width=%222%22/%3E%0A  %3Cpath d=%22M17.5 5H62.5L75 17.5V30.5L62.5 43H17.5L5 30.5V17.5Z%22 fill=%22none%22 stroke=%22%23794617%22 stroke-opacity=%22.55%22 stroke-width=%221%22/%3E%0A%3C/svg%3E") 20 fill / 20px stretch !important; }
+html[data-me="me1"][data-bs-theme="light"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
+  border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2224%22 viewBox=%220 0 40 24%22 preserveAspectRatio=%22none%22%3E%0A  %3Cdefs%3E%0A    %3ClinearGradient id=%22b%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23d7ecf6%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23cfe6f1%22/%3E%3Cstop offset=%221%22 stop-color=%22%23a9d3e8%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22l%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%23ffffff%22 stop-opacity=%22.9%22/%3E%3Cstop offset=%221%22 stop-color=%22%23ffffff%22 stop-opacity=%22.05%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22r%22 x1=%221%22 y1=%220%22 x2=%220%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%23ffffff%22 stop-opacity=%22.9%22/%3E%3Cstop offset=%221%22 stop-color=%22%23ffffff%22 stop-opacity=%22.05%22/%3E%3C/linearGradient%3E%0A  %3C/defs%3E%0A  %3Crect x=%22.5%22 y=%22.5%22 width=%2239%22 height=%2223%22 fill=%22url(%23b)%22 stroke=%22%232678a0%22/%3E%0A  %3Cpath d=%22M1 1H11L9 5V19L11 23H1Z%22 fill=%22url(%23l)%22/%3E%0A  %3Cpath d=%22M39 1H29L31 5V19L29 23H39Z%22 fill=%22url(%23r)%22/%3E%0A  %3Crect x=%221%22 y=%2221.5%22 width=%2238%22 height=%221.5%22 fill=%22%232678a0%22 opacity=%22.55%22/%3E%0A%3C/svg%3E") 0 14 0 14 fill / 0 14px 0 14px stretch !important; color: #0b2a3f;
+}
+html[data-me="me1"][data-bs-theme="light"] .me-desc { border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%0A  %3Cdefs%3E%3ClinearGradient id=%22p%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23e9f4f9%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23d3e8f2%22/%3E%3Cstop offset=%221%22 stop-color=%22%23bfe3f2%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A  %3Cpath d=%22M.5 .5H39.5V27.5L27.5 39.5H.5Z%22 fill=%22url(%23p)%22 stroke=%22%232d677b%22/%3E%0A%3C/svg%3E") 14 fill / 14px stretch !important; }
+html[data-me="me1"][data-bs-theme="light"] .me1-head { border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22%3E%0A  %3Cdefs%3E%3ClinearGradient id=%22p%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23e4f1f7%22/%3E%3Cstop offset=%221%22 stop-color=%22%23bfe3f2%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A  %3Cpath d=%22M.5 .5H39.5V27.5L27.5 39.5H.5Z%22 fill=%22url(%23p)%22 stroke=%22%232d677b%22/%3E%0A%3C/svg%3E") 14 fill / 14px stretch !important; }
+
+/* ME1 widget colours as tokens (dark = measured, light = derived) */
+html[data-me="me1"] { --m1-ring: #2a6f93; --m1-gap: #0e1428; --m1-on: #2d95c4; --m1-off: #0f2a3d; --m1-pick: #1b4a66; --m1-pick-b: #2678a0; --m1-pick-t: #2d95c4; --m1-drop: rgb(45 148 195 / 52%); --m1-drop-a: #4fb0d8; }
+html[data-me="me1"][data-bs-theme="light"] { --m1-ring: #2678a0; --m1-gap: #ffffff; --m1-on: #2d95c4; --m1-off: #e4f1f7; --m1-pick: #cfe6f1; --m1-pick-b: #2678a0; --m1-pick-t: #0f3550; --m1-drop: rgb(45 148 195 / 70%); --m1-drop-a: #ffffff; }
+html[data-me="me1"] .me-onoff > .btn-check::before { border-color: var(--m1-ring); box-shadow: inset 0 0 0 1.5px var(--m1-gap); background: var(--m1-on); }
+html[data-me="me1"] .me-onoff.btn-group.btn-group > .btn-check:last-child:has(input:checked)::before { background: var(--m1-off); border-color: var(--m1-ring); box-shadow: inset 0 0 0 1.5px var(--m1-gap); }
+html[data-me="me1"] .me-picker-value { background: var(--m1-pick); border-color: var(--m1-pick-b); color: var(--m1-pick-t); }
+html[data-me="me1"] .me-picker-drop { background: var(--m1-drop); }
+html[data-me="me1"] .me-picker-drop::after { background: var(--m1-drop-a); }
+html[data-me="me1"] .me-row.selected .me-picker-drop::after { background: #fff; }
+html[data-me="me1"][data-bs-theme="light"] .me-row.selected .me-picker-value { background: #6e3515; color: #fff3e6; }
+html[data-me="me1"][data-bs-theme="light"] .me-onoff.btn-group.btn-group > .btn-check { color: #0f3550; text-shadow: none; }
+html[data-me="me1"][data-bs-theme="light"] .me-row.selected .me-onoff > .btn-check::before { box-shadow: inset 0 0 0 1.5px #fff3e6; }
+
+/* ---- light leftovers ---- */
+html[data-me="me1"][data-bs-theme="light"] .me-row.disabled .me-picker-value { background: #dbe9f0; border-color: #9fc0d1; color: #8fb0c2; }
+html[data-me="me1"][data-bs-theme="light"] .me-row.disabled .me-picker-drop { background: rgb(45 148 195 / 25%); }
+html[data-me="me1"][data-bs-theme="light"] .me-picker-value { font-weight: 700; }
+html[data-me="me2"][data-bs-theme="light"] .me-onoff > .btn-check::before { background: #fffaf0; border-color: #794617; box-shadow: none; }
+html[data-me="me2"][data-bs-theme="light"] .me-onoff > .btn-check:not(:has(input:checked))::before { border-color: #794617; }
+html[data-me="me2"][data-bs-theme="light"] .me-onoff > .btn-check:has(input:checked)::before { background: #c8761f; border-color: #6d3911; box-shadow: inset 0 0 0 2px #fffaf0, 0 0 0 1px #794617; }
+html[data-me="me2"][data-bs-theme="light"] .me-desc { color: #4a2709; }
+html[data-me="me2"][data-bs-theme="light"] .me-picker.boxed .me-picker-value { background: #e9d3ac; border-color: #794617; color: #4a2709; }
+html[data-me="me2"][data-bs-theme="light"] .me-picker.boxed .me-picker-drop { background: #c8761f; border-color: #6d3911; }
+html[data-me="me2"][data-bs-theme="light"] .me-picker:not(.boxed) .me-picker-value { color: #6d3911; }
+html[data-me="me2"][data-bs-theme="light"] .me-row.disabled .me-picker-value, html[data-me="me2"][data-bs-theme="light"] .me-row.disabled { color: #b8a58c; }
+/* ME1 slider value: bold wide numerals; arrows a touch larger */
+html[data-me="me1"] .me-picker.slider .me-row-aside, html[data-me="me1"] .me1-val { font-family: "Orbitron", "Michroma", sans-serif; font-weight: 700; }
+html[data-me="me1"] .me-arrow.me-arrow { width: 12px; height: 14px; }
+html[data-me="me1"] .me-picker.slider .me-row-aside, html[data-me="me1"] .me1-val { font-family: "Michroma", sans-serif; font-weight: 400; -webkit-text-stroke: .6px currentColor; }
+html[data-me="me1"] .me-onoff.btn-group.btn-group > .btn-check { font-family: "Michroma", sans-serif; font-weight: 400; -webkit-text-stroke: .6px currentColor; }
+
+/* ME1 key cell: bright 6px end caps + vertical glass gradient, bold key letter */
+html[data-me="me1"] .key-cell {
+  border: 1px solid #397aa1; color: #ebeeef; font-weight: 700; font-family: "Michroma", sans-serif;
+  background:
+    linear-gradient(90deg, #5ab0d8 0, #3d8fb8 6px, transparent 6px, transparent calc(100% - 6px), #3d8fb8 calc(100% - 6px), #5ab0d8 100%),
+    linear-gradient(180deg, #14435f 0%, #1d5a80 50%, #143f5a 100%) !important;
+}
+html[data-me="me1"] .me-keys .me-row-label { font-family: "Orbitron", "Michroma", sans-serif; font-weight: 700; letter-spacing: .01em; }
+html[data-me="me1"][data-bs-theme="light"] .key-cell { color: #0b2a3f; background: linear-gradient(90deg, #2678a0 0, #5ab0d8 6px, transparent 6px, transparent calc(100% - 6px), #5ab0d8 calc(100% - 6px), #2678a0 100%), linear-gradient(180deg, #e4f1f7, #bfe3f2) !important; }
+
+/* ME3 key bindings header: dark navy glass with a thin blue frame (measured from refs/me3/ea/5-key-bindings.png) */
+html[data-me="me3"][data-bs-theme="dark"] .me-keys-head {
+  background: linear-gradient(180deg, #0f3d72 0%, #082a52 55%, #061a38 100%); border: 1px solid #2f6fc0; color: #a8dcf5;
+  border-radius: 14px 4px 4px 14px; box-shadow: 0 0 8px rgb(47 111 192 / 35%);
+}
+html[data-me="me3"][data-bs-theme="dark"] .me-keys .me-row.selected .key-cell { border-color: #e8341c; background: #4a0714; box-shadow: 0 0 6px rgb(255 60 40 / 45%); }
+
+/* ME2 key bindings (refs/me2/ea/key-bindings): header is a horizontal copper fade, cells are NOT pills - only thin column separators */
+html[data-me="me2"] .me-keys-head {
+  background: linear-gradient(90deg, rgb(160 96 46 / 88%) 0%, rgb(118 70 34 / 60%) 55%, rgb(60 35 20 / 12%) 100%) !important;
+  border: 0; border-top: 1px solid #b9703a; border-left: 1px solid #b9703a; border-radius: 0; color: #e6cda0; min-height: 26px;
+}
+html[data-me="me2"] .me-keys .key-cell, html[data-me="me2"] .me-keys .me-row.selected .key-cell {
+  background: none !important; border: 0; border-left: 1px solid rgb(214 150 90 / 28%); border-top: 0; border-radius: 0; color: inherit; box-shadow: none; font-family: inherit; font-weight: 400;
+}
+html[data-me="me2"] .me-keys .me-row.selected .key-cell { color: #96df59; }
+
+/* ME2 footer tab = one SVG skin (assets/skins/footer-me2.svg); honeycomb is a faint overlay */
+html[data-me="me2"] .me-foot .btn.btn:not(#a):not(#b) {
+  clip-path: none !important; background: none !important; box-shadow: none !important; border: 0 solid transparent !important; border-radius: 0 !important;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2239%22 height=%2224%22 viewBox=%220 0 39 24%22%3E%0A  %3Cdefs%3E%0A    %3ClinearGradient id=%22r%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23b8763c%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%237d4e2b%22/%3E%3Cstop offset=%221%22 stop-color=%22%23a86b36%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22b%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%2343301f%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%232b1a10%22/%3E%3Cstop offset=%221%22 stop-color=%22%233e2a1a%22/%3E%3C/linearGradient%3E%0A  %3C/defs%3E%0A  %3Cpath d=%22M0 0H39V24H17L0 8Z%22 fill=%22url(%23r)%22/%3E%0A  %3Cpath d=%22M2.5 2.5H36V21.5H18L2.5 7.6Z%22 fill=%22url(%23b)%22/%3E%0A  %3Cpath d=%22M5.5 5.5H33V18.5H19.2L5.5 6.8Z%22 fill=%22none%22 stroke=%22%23d6965a%22 stroke-opacity=%22.28%22/%3E%0A%3C/svg%3E") 0 8 0 30 fill / 0 8px 0 30px stretch !important; padding-inline: 16px 8px; color: #d6ae6c;
+}
+html[data-me="me2"] .me-foot .btn.btn:not(#a):not(#b)::after { display: none !important; }
+html[data-me="me2"] .me-foot .btn.btn:not(#a):not(#b)::before {
+  inset: 3px 3px 3px 8px; clip-path: none; box-shadow: none; border-radius: 0; opacity: 1;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='24'%3E%3Cpath d='M7 0 14 4V12L7 16 0 12V4ZM7 16V24' fill='none' stroke='white' stroke-opacity='.045'/%3E%3C/svg%3E") 0 0 / 9px 15.4px;
+}
+
+/* ME1 selected row = rectangle chamfered top-left and bottom-right, flat 1px edges (top #b76d40, bottom #a2623d), flat left end */
+html[data-me="me1"] .me-row.selected:not(#a):not(#b) {
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  border: 0; box-shadow: inset 0 1px 0 #b76d40, inset 0 -1px 0 #a2623d;
+  background: linear-gradient(90deg, #824018 0, #4c240f 25%, #3f1e0d 58%, #6e3515 100%);
+}
+html[data-me="me1"] .me-row-label { -webkit-text-stroke: .4px currentColor; }
+
+/* ME1 description box with the game's top-edge step (assets/skins/desc-me1.svg) */
+html[data-me="me1"][data-bs-theme="dark"] .me-desc:not(#a):not(#b) {
+  border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%2240%22 viewBox=%220 0 200 40%22%3E%0A  %3Cdefs%3E%3ClinearGradient id=%22p%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23101f37%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23133555%22/%3E%3Cstop offset=%221%22 stop-color=%22%23144f86%22/%3E%3C/linearGradient%3E%3C/defs%3E%0A  %3Cpath d=%22M.5 3.5H150L153 .5H199.5V27.5L187.5 39.5H.5Z%22 fill=%22url(%23p)%22 stroke=%22%234093ae%22/%3E%0A%3C/svg%3E") 10 14 14 160 fill / 10px 14px 14px 160px stretch !important; padding-top: 12px;
+}
+
+/* ==========================================================================
+   LIST SCROLLBAR as its own element (.me-scroll): a different SVG thumb per game (assets/skins/scroll-*.svg)
+   ========================================================================== */
+html[data-me="me3"] .me-scroll > i:not(#a) { left: calc(50% - 1px); transform: none; margin-top: 3px; width: 9px; height: 40px; border: 0; border-radius: 0; box-shadow: none;
+  background: url("../assets/skins/scroll-thumb-me3.svg") 0 0 / 100% 100% no-repeat; filter: drop-shadow(0 0 3px rgb(255 60 40 / 75%)); }
+html[data-me="me2"] .me-scroll > i:not(#a) { left: calc(50% - 1px); transform: none; margin-top: -23px; width: 10px; height: 56px; border: 0; border-radius: 0; box-shadow: none;
+  background: url("../assets/skins/scroll-thumb-me2.svg") 0 0 / 100% 100% no-repeat; }
+html[data-me="me2"] .me-scroll:not(#a) { background: #5b8651; width: 2px; }
+html[data-me="me1"] .me-scroll:not(#a) { width: 10px; background: #325589; border-radius: 0; margin-top: 22px; margin-bottom: 22px; }
+html[data-me="me1"] .me-scroll:not(#a)::before, html[data-me="me1"] .me-scroll:not(#a)::after { content: ""; position: absolute; left: 0; width: 10px; height: 26px; background: url("../assets/skins/scroll-me1-track.svg") 0 0 / 100% 100% no-repeat; }
+html[data-me="me1"] .me-scroll:not(#a)::before { top: -26px; }
+html[data-me="me1"] .me-scroll:not(#a)::after { bottom: -26px; transform: scaleY(-1); }
+html[data-me="me1"] .me-scroll > i:not(#a) { left: 50%; transform: translateX(-50%); margin-top: -1px; width: 12px; height: 16px; border: 0; border-radius: 0; box-shadow: none; background: url("../assets/skins/scroll-thumb-me1.svg") 0 0 / 100% 100% no-repeat; }
+html[data-me="me1"][data-bs-theme="light"] .me-scroll:not(#a) { background: #a5c6d8; }
+
+/* ME3 glow: arrows and picker rims bloom blue in the game */
+html[data-me="me3"] .me-arrow.me-arrow:not(.dim) { filter: drop-shadow(0 0 3px #2f8bff) drop-shadow(0 0 7px #1b6cff); }
+html[data-me="me3"] .me-arrow.me-arrow.dim { filter: drop-shadow(0 0 4px rgb(30 90 180 / 55%)) !important; }
+html[data-me="me3"] .me-picker-value { box-shadow: 0 0 4px rgb(40 110 230 / 30%); }
+html[data-me="me3"] .me-row.selected .me-picker-value { box-shadow: 0 0 6px rgb(255 70 40 / 45%); }
+html[data-me="me3"] .me-row.disabled .me-picker-value { box-shadow: none; }
+
+/* ME2 picker boxes get the game's 1px bright frame; drop button is a lighter square */
+html[data-me="me2"] .me-picker.boxed .me-picker-value { border: 1px solid #e5a55c; background: #6c4c2e; }
+html[data-me="me2"] .me-picker.boxed .me-picker-drop { background: #c08a50; border: 1px solid #e5a55c; }
+html[data-me="me2"] .me-row.selected .me-picker.boxed .me-picker-value { border: 1px solid #9be85c; background: #527233; }
+html[data-me="me2"] .me-picker-drop:not(#a)::after { -webkit-mask: none; mask: none; transform: none; width: 12px; height: 8px; background: #f6c58a; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+html[data-me="me2"] .me-row.selected .me-picker-drop:not(#a)::after { background: #d8ffb0; }

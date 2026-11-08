@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME1 scrollbar track end cap (10x26): pointed top the width of the track, two bold dark chevrons. Bottom = flipped. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="10" height="26" viewBox="0 0 10 26">
+  <path d="M0 26V9L5 0 10 9V26Z" fill="#3a63a2"/>
+  <path d="M0 15 5 10 10 15M0 22 5 17 10 22" fill="none" stroke="#0e1428" stroke-width="2"/>
+</svg>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME1 button skin (9-slice, 40x24, slice 14px left/right). Thin bright edge, dark body, light gradient end strips cut diagonally. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 40 24" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f4a7e"/><stop offset=".55" stop-color="#12497d"/><stop offset="1" stop-color="#1b6aa6"/></linearGradient>
+    <linearGradient id="l" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#96d7f5" stop-opacity=".9"/><stop offset="1" stop-color="#96d7f5" stop-opacity=".05"/></linearGradient>
+    <linearGradient id="r" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#96d7f5" stop-opacity=".9"/><stop offset="1" stop-color="#96d7f5" stop-opacity=".05"/></linearGradient>
+  </defs>
+  <rect x=".5" y=".5" width="39" height="23" fill="url(#b)" stroke="#38b4ea"/>
+  <path d="M1 1H11L9 5V19L11 23H1Z" fill="url(#l)"/>
+  <path d="M39 1H29L31 5V19L29 23H39Z" fill="url(#r)"/>
+  <rect x="1" y="21.5" width="38" height="1.5" fill="#38b4ea" opacity=".55"/>
+</svg>

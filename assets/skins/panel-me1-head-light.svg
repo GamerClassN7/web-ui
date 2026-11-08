@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME1 header panel (teal) (9-slice, 40x40, slice 14): glass gradient, 1px teal edge, bottom-right corner cut 12px. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs><linearGradient id="p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4f1f7"/><stop offset="1" stop-color="#bfe3f2"/></linearGradient></defs>
+  <path d="M.5 .5H39.5V27.5L27.5 39.5H.5Z" fill="url(#p)" stroke="#2d677b"/>
+</svg>

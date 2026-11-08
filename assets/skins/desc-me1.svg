@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME1 description box (9-slice 200x40; slice top 10 / left 170 / right 14 / bottom 14).
+     Left 170px: top edge sits 3px lower; at x~160 a 45deg step up to the full-height edge. Bottom-right corner cut 12px. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40">
+  <defs><linearGradient id="p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101f37"/><stop offset=".55" stop-color="#133555"/><stop offset="1" stop-color="#144f86"/></linearGradient></defs>
+  <path d="M.5 3.5H150L153 .5H199.5V27.5L187.5 39.5H.5Z" fill="url(#p)" stroke="#4093ae"/>
+</svg>

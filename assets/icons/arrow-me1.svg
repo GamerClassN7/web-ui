@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME1 arrow, pointing LEFT: plain solid triangle. Right arrow = mirrored. Used as a CSS mask (css/me-shapes.css). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 13" preserveAspectRatio="none">
+  <path d="M11 0 0 6.5 11 13z"/>
+</svg>

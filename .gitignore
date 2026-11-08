@@ -1,0 +1,6 @@
+# generated / local-only
+mockups/renders/
+.megamemory/
+.profile/
+*.tmp
+__pycache__/

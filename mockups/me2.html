@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="cs" data-me="me2" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1100">
+  <title>ME2 mockups vs. reference</title>
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/me-theme.css">
+  <link rel="stylesheet" href="../css/me-widgets.css">
+  <link rel="stylesheet" href="../css/me-me2.css">
+  <link rel="stylesheet" href="../css/me-shapes.css">
+  <link rel="stylesheet" href="mock.css">
+</head>
+<body data-game="me2">
+  <div class="cmp-bar">
+    <strong>ME2</strong>
+    <label>Screen <select id="sel"></select></label>
+    <label>Pohled
+      <select id="mode">
+        <option value="side">vedle sebe</option>
+        <option value="overlay">překryv</option>
+        <option value="diff">rozdíl (difference)</option>
+        <option value="mock">jen mockup</option>
+        <option value="ref">jen reference</option>
+      </select>
+    </label>
+    <label>Průhlednost reference <input id="ov" type="range" min="0" max="100" value="50"></label>
+    <a href="../index.html">← showcase</a>
+  </div>
+  <div class="cmp-wrap" id="wrap">
+    <div class="cmp-col mock"><h4>Mockup (HTML/CSS)</h4><div class="stage" id="stage" data-me="me2"></div></div>
+    <div class="cmp-col ref"><h4>Reference (EA PNG)</h4><img class="cmp-ref" id="ref" alt="reference"></div>
+  </div>
+  <script src="mock.js"></script>
+</body>
+</html>

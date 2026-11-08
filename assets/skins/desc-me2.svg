@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME2 description box (9-slice, 80x48, slice 20): octagon, copper gradient rim, dark fill, thin inner copper line, inner glow. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="48" viewBox="0 0 80 48">
+  <defs><linearGradient id="r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c98a52"/><stop offset=".5" stop-color="#8b5830"/><stop offset="1" stop-color="#b9703a"/></linearGradient>
+  <radialGradient id="g" cx=".5" cy=".5" r=".7"><stop offset=".6" stop-color="#130607"/><stop offset="1" stop-color="#2a1208"/></radialGradient></defs>
+  <path d="M17 1H63L79 17V31L63 47H17L1 31V17Z" fill="url(#g)" stroke="url(#r)" stroke-width="2"/>
+  <path d="M17.5 5H62.5L75 17.5V30.5L62.5 43H17.5L5 30.5V17.5Z" fill="none" stroke="#8b5830" stroke-opacity=".55" stroke-width="1"/>
+</svg>

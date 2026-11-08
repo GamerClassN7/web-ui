@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ME2 footer tab (9-slice 39x24; slice left 30 / right 8, middle 1px stretches). Copper rim, dark body, thin inner line,
+     bottom-left chamfer 17x16 measured from refs/me2/ea/graphics-picture-1.png. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="39" height="24" viewBox="0 0 39 24">
+  <defs>
+    <linearGradient id="r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8763c"/><stop offset=".5" stop-color="#7d4e2b"/><stop offset="1" stop-color="#a86b36"/></linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#43301f"/><stop offset=".5" stop-color="#2b1a10"/><stop offset="1" stop-color="#3e2a1a"/></linearGradient>
+  </defs>
+  <path d="M0 0H39V24H17L0 8Z" fill="url(#r)"/>
+  <path d="M2.5 2.5H36V21.5H18L2.5 7.6Z" fill="url(#b)"/>
+  <path d="M5.5 5.5H33V18.5H19.2L5.5 6.8Z" fill="none" stroke="#d6965a" stroke-opacity=".28"/>
+</svg>

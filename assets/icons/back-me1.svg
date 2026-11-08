@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Back tab (ME1), 60x23: slanted light stripe with top lip, gradient body, white "return" arrow with a hook and three small dashes. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="23" viewBox="0 0 60 23">
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1f6a8c"/><stop offset="1" stop-color="#1f6286"/></linearGradient>
+  <linearGradient id="s" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5aa6cc"/><stop offset="1" stop-color="#cfeefb"/></linearGradient></defs>
+  <path d="M7.5 23 22 0H60V23Z" fill="url(#b)"/>
+  <path d="M0 23 21 0H33L29 3.5H24.5L8 23Z" fill="url(#s)"/>
+  <g fill="#dffaff"><path d="M39 7.2 46.2 2.4V5.6H52.8C56 5.6 58 7.4 58 10.6V16.8C58 19.6 56.2 21 53.2 21H47V18H52.4C53.6 18 54.4 17.4 54.4 16.2V11.2C54.4 9.6 53.6 8.8 52 8.8H46.2V12Z"/>
+  <rect x="38" y="18.5" width="1.6" height="3.6"/><rect x="41" y="18.5" width="1.6" height="3.6"/><rect x="44" y="18.5" width="1.6" height="3.6"/></g>
+</svg>
