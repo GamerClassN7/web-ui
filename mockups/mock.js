@@ -290,9 +290,11 @@
   function closeDrop() { var d = document.querySelector('.mock-drop'); if (d) d.remove(); }
   function openDrop(r, rowEl) {
     closeDrop(); if (r.dis) return;
-    var stg = document.getElementById('stage'), pk = rowEl.querySelector('.me-picker'), a = pk.getBoundingClientRect(), b = stg.getBoundingClientRect();
+    // position in the stage's own CSS px (offsets, not screen rects: the view may be zoomed to fit the window)
+    var stg = document.getElementById('stage'), pk = rowEl.querySelector('.me-picker'), x = 0, y = 0;
+    for (var e = pk; e && e !== stg; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; }
     var d = document.createElement('div'); d.className = 'mock-drop'; d.setAttribute('role', 'listbox');
-    d.style.left = (a.left - b.left) + 'px'; d.style.top = (a.bottom - b.top + 2) + 'px'; d.style.width = a.width + 'px';
+    d.style.left = x + 'px'; d.style.top = (y + pk.offsetHeight + 2) + 'px'; d.style.width = pk.offsetWidth + 'px';
     optsFor(r).forEach(function (v) {
       var o = document.createElement('button'); o.type = 'button'; o.textContent = v; o.setAttribute('role', 'option');
       if (v === r.v) o.setAttribute('aria-selected', 'true');
@@ -374,7 +376,14 @@
     Object.keys(D).forEach(function (k) { var o = document.createElement('option'); o.value = k; o.textContent = D[k].sub; sel.appendChild(o); });
     sel.addEventListener('change', function () { show(sel.value); });
     var wrap = document.getElementById('wrap'), mode = document.getElementById('mode'), ov = document.getElementById('ov');
-    function setMode() { wrap.className = 'cmp-wrap mode-' + mode.value; wrap.style.setProperty('--ov', ov.value / 100); }
+    function setMode() { wrap.className = 'cmp-wrap mode-' + mode.value; wrap.style.setProperty('--ov', ov.value / 100); fit(); }
+    // scale the view down to the window width (side by side needs 2 x 1023px); never in ?bare=1 (measuring renders stay 1:1)
+    function fit() {
+      if (document.body.classList.contains('bare')) return;
+      var need = (mode.value === 'side' ? 2 * 1023 + 12 : 1023) + 32;
+      wrap.style.zoom = Math.min(1, document.documentElement.clientWidth / need);
+    }
+    window.addEventListener('resize', fit);
     mode.addEventListener('change', setMode); ov.addEventListener('input', setMode);
     mode.value = qs.get('mode') || 'side'; setMode();
     show(D[cur] ? cur : 'graphics');
