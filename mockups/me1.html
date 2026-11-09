@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="cs" data-me="me1" data-bs-theme="dark">
+<html lang="en" data-me="me1" data-bs-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=1100">
@@ -16,21 +16,21 @@
   <div class="cmp-bar">
     <strong>ME1</strong>
     <label>Screen <select id="sel"></select></label>
-    <label>Pohled
+    <label>View
       <select id="mode">
-        <option value="side">vedle sebe</option>
-        <option value="overlay">překryv</option>
-        <option value="diff">rozdíl (difference)</option>
-        <option value="mock">jen mockup</option>
-        <option value="ref">jen reference</option>
+        <option value="side">side by side</option>
+        <option value="overlay">overlay</option>
+        <option value="diff">difference</option>
+        <option value="mock">mockup only</option>
+        <option value="ref">reference only</option>
       </select>
     </label>
-    <label>Průhlednost reference <input id="ov" type="range" min="0" max="100" value="50"></label>
-    <a href="../index.html">← showcase</a>
+    <label>Reference opacity <input id="ov" type="range" min="0" max="100" value="50"></label>
+    <a href="../index.html">← home</a> · <a href="../showcase.html">showcase</a>
   </div>
   <div class="cmp-wrap" id="wrap">
     <div class="cmp-col mock"><h4>Mockup (HTML/CSS)</h4><div class="stage" id="stage" data-me="me1"></div></div>
-    <div class="cmp-col ref"><h4>Reference (EA PNG)</h4><img class="cmp-ref" id="ref" alt="reference"></div>
+    <div class="cmp-col ref"><h4>Reference (EA PNG)</h4><img class="cmp-ref" id="ref" alt="Reference screenshot"></div>
   </div>
   <script src="mock.js"></script>
 </body>

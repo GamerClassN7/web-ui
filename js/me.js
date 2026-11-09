@@ -14,7 +14,7 @@
   }
 
   var saved = read();
-  // Optional URL override, e.g. index.html?style=me2&mode=light (used for screenshots/testing, not persisted)
+  // Optional URL override, e.g. showcase.html?style=me2&mode=light (used for screenshots/testing, not persisted)
   try {
     var q = new URLSearchParams(location.search);
     if (q.get('style')) saved.style = q.get('style');

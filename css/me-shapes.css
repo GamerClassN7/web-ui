@@ -5,7 +5,7 @@
    ========================================================================== */
 
 html[data-me="me3"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 28' preserveAspectRatio='none'%3E%3Cpath d='M15 3C9.5 5 4 9 1 14C4 19 9.5 23 15 25Q13.4 14 15 3Z'/%3E%3C/svg%3E"); }
-html[data-me="me2"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2224%22 viewBox=%220 0 20 24%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M15 2 1 12 15 22Z%22/%3E%3Cpath fill=%22none%22 stroke=%22black%22 stroke-opacity=%22.55%22 stroke-width=%221.4%22 stroke-linejoin=%22round%22 d=%22M18.6 6 8.4 12.8 18.6 19.6Z%22/%3E%3C/svg%3E"); }
+html[data-me="me2"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2219%22 height=%2219%22 viewBox=%220 0 19 19%22 preserveAspectRatio=%22none%22%3E%3Cpath d=%22M14.4 1.8 3.2 7.6 14.4 13.2Z%22/%3E%3Cpath fill=%22none%22 stroke=%22black%22 stroke-opacity=%22.5%22 stroke-width=%221.3%22 stroke-linejoin=%22round%22 d=%22M17.8 .7 .9 9.4 17.8 18.2Z%22/%3E%3C/svg%3E"); }
 html[data-me="me1"] { --me-arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 13' preserveAspectRatio='none'%3E%3Cpath d='M11 0 0 6.5 11 13z'/%3E%3C/svg%3E"); }
 
 /* one icon system for all three games: the shape is a mask, the colour is the element background (state colours) */
@@ -186,17 +186,6 @@ html[data-me="me2"] .me-foot .btn::before { clip-path: polygon(0 0, 100% 0, 100%
 html[data-me="me2"] .me-foot .btn::after { clip-path: polygon(0 0, 100% 0, 100% 100%, 17% 100%, 0 46%); border-left-color: transparent; }
 
 /* ---------- ME1: light cyan frame, dark capsule inside, bright "bracket" ends ---------- */
-html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
-  background: linear-gradient(90deg, #5fc3ec 0%, #2a8fc0 50%, #5fc3ec 100%) !important; border: 1px solid #38b4ea !important; border-radius: 2px !important; box-shadow: none !important; color: #e3edf2;
-}
-html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::before {
-  inset: 2px 7px; border-radius: 11px / 50%;
-  background: linear-gradient(180deg, #104679 0%, #12497d 60%, #1b6aa6 100%);
-}
-html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info)::after {
-  inset: 0 4px; border: 0; border-top: 1px solid rgb(255 255 255 / 25%);
-}
-
 /* ---- ME2 footer tab: exact diagonal in px (button 165x24, cut from (0,10) to (25,24)), frame follows it ---- */
 html[data-me="me2"] .me-foot .btn { clip-path: polygon(0 0, 100% 0, 100% 100%, 25px 100%, 0 10px) !important; }
 html[data-me="me2"] .me-foot .btn::before {
@@ -333,12 +322,12 @@ html[data-me="me3"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .
 
 /* ==========================================================================
    SCROLLBARS (vertical + horizontal) — the game's thin track line with a pill/block thumb
-   ME3: 2px track #451c21, pill thumb fill #760d11 + 2px #fc5732 ring
-   ME2: 2px track #5b8651, olive pill thumb #41512a + #5b8651 ring
+   ME3: 2px track #451c21 with salmon end caps, red "D" lens thumb (dark -> bright) with #f0482c rim
+   ME2: 2px track #5b8651, copper capsule thumb #f0b46a -> #d98a3a with #ffb458 rim
    ME1: 8px track #325589, square thumb #55aadf        (all [m] from the EA PNGs)
    ========================================================================== */
 html[data-me] { --sb-track: #451c21; --sb-thumb: #760d11; --sb-ring: #fc5732; --sb-w: 14px; }
-html[data-me="me2"] { --sb-track: #5b8651; --sb-thumb: #41512a; --sb-ring: #5b8651; }
+html[data-me="me2"] { --sb-track: #5b8651; --sb-thumb: #e09a4c; --sb-ring: #ffb458; }
 html[data-me="me1"] { --sb-track: #325589; --sb-thumb: #55aadf; --sb-ring: #55aadf; --sb-w: 12px; }
 html[data-me="me3"][data-bs-theme="light"] { --sb-track: #c3dbe8; --sb-thumb: #ac1e18; }
 html[data-me="me2"][data-bs-theme="light"] { --sb-track: #cfb687; }
@@ -351,10 +340,23 @@ html[data-me] ::-webkit-scrollbar-corner { background: transparent; }
 /* track = thin centred line (vertical: left-right gradient, horizontal: top-bottom) */
 html[data-me] ::-webkit-scrollbar-track:vertical   { background: linear-gradient(90deg, transparent calc(50% - 1px), var(--sb-track) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
 html[data-me] ::-webkit-scrollbar-track:horizontal { background: linear-gradient(180deg, transparent calc(50% - 1px), var(--sb-track) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
+/* thumbs follow the in-screen list thumbs (assets/skins/scroll-thumb-*.svg, measured on the EA PNGs) */
 html[data-me] ::-webkit-scrollbar-thumb { background: var(--sb-thumb); border: 2px solid var(--sb-ring); background-clip: padding-box; min-height: 34px; min-width: 34px; }
-html[data-me="me3"] ::-webkit-scrollbar-thumb, html[data-me="me2"] ::-webkit-scrollbar-thumb { border-radius: 8px; }
-html[data-me="me2"] ::-webkit-scrollbar-thumb { border-radius: 8px; box-shadow: none; }
-html[data-me="me1"] ::-webkit-scrollbar-track { background: var(--sb-track); }
+/* ME3: "D" lens (flat side left, round right), dark red top -> bright red bottom, bright rim; salmon caps at both track ends */
+html[data-me="me3"] ::-webkit-scrollbar-thumb { border: 1px solid #f0482c; border-left-width: 3px; border-left-color: transparent; border-radius: 2px 9px 9px 2px / 2px 50% 50% 2px;
+  background: linear-gradient(180deg, #4a060c, #8e1010 55%, #e81c0a) padding-box; }
+html[data-me="me3"] ::-webkit-scrollbar-thumb:horizontal { border: 1px solid #f0482c; border-top-width: 3px; border-top-color: transparent; border-radius: 2px 2px 9px 9px / 2px 2px 50% 50%;
+  background: linear-gradient(90deg, #4a060c, #8e1010 55%, #e81c0a) padding-box; }
+html[data-me="me3"] ::-webkit-scrollbar-track:vertical { background:
+  linear-gradient(#f6b4a2, #f6b4a2) 50% 0 / 4px 5px no-repeat, linear-gradient(#f6b4a2, #f6b4a2) 50% 100% / 4px 5px no-repeat,
+  linear-gradient(90deg, transparent calc(50% - 1px), var(--sb-track) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)); }
+html[data-me="me3"][data-bs-theme="light"] ::-webkit-scrollbar-thumb { background-image: linear-gradient(180deg, #c8524a, #ac1e18 55%, #e83a20); }
+/* ME2: copper capsule with a light rim on the thin green line */
+html[data-me="me2"] ::-webkit-scrollbar-thumb { border: 1px solid #ffb458; border-radius: 4px; background: linear-gradient(90deg, #f0b46a, #d98a3a) padding-box; box-shadow: none; }
+html[data-me="me2"] ::-webkit-scrollbar-thumb:vertical { border-left-width: 3px; border-right-width: 3px; border-color: transparent; box-shadow: inset 0 0 0 1px #ffb458; background-clip: padding-box; }
+html[data-me="me2"] ::-webkit-scrollbar-thumb:horizontal { border-top-width: 3px; border-bottom-width: 3px; border-color: transparent; box-shadow: inset 0 0 0 1px #ffb458; background: linear-gradient(180deg, #f0b46a, #d98a3a) padding-box; }
+/* ME1: solid 10px track, square light-blue thumb */
+html[data-me="me1"] ::-webkit-scrollbar-track:vertical, html[data-me="me1"] ::-webkit-scrollbar-track:horizontal { background: var(--sb-track); }
 html[data-me="me1"] ::-webkit-scrollbar-thumb { border: 0; border-radius: 0; }
 html[data-me] ::-webkit-scrollbar-thumb:hover { filter: brightness(1.3); }
 html[data-me] ::-webkit-scrollbar-button { display: none; }
@@ -365,8 +367,8 @@ html[data-me] ::-webkit-scrollbar-button { display: none; }
 
 /* ME1 button = SVG 9-slice skin (assets/skins/btn-me1.svg): corners keep their exact shape at any width */
 html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not(.theme-danger):not(.theme-success):not(.theme-warning):not(.theme-info) {
-  background: none !important; border: 0 solid transparent !important; box-shadow: none !important; padding-inline: 14px;
-  border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2224%22 viewBox=%220 0 40 24%22 preserveAspectRatio=%22none%22%3E%0A  %3Cdefs%3E%0A    %3ClinearGradient id=%22b%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%230f4a7e%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%2312497d%22/%3E%3Cstop offset=%221%22 stop-color=%22%231b6aa6%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22l%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%2396d7f5%22 stop-opacity=%22.9%22/%3E%3Cstop offset=%221%22 stop-color=%22%2396d7f5%22 stop-opacity=%22.05%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22r%22 x1=%221%22 y1=%220%22 x2=%220%22 y2=%220%22%3E%3Cstop offset=%220%22 stop-color=%22%2396d7f5%22 stop-opacity=%22.9%22/%3E%3Cstop offset=%221%22 stop-color=%22%2396d7f5%22 stop-opacity=%22.05%22/%3E%3C/linearGradient%3E%0A  %3C/defs%3E%0A  %3Crect x=%22.5%22 y=%22.5%22 width=%2239%22 height=%2223%22 fill=%22url(%23b)%22 stroke=%22%2338b4ea%22/%3E%0A  %3Cpath d=%22M1 1H11L9 5V19L11 23H1Z%22 fill=%22url(%23l)%22/%3E%0A  %3Cpath d=%22M39 1H29L31 5V19L29 23H39Z%22 fill=%22url(%23r)%22/%3E%0A  %3Crect x=%221%22 y=%2221.5%22 width=%2238%22 height=%221.5%22 fill=%22%2338b4ea%22 opacity=%22.55%22/%3E%0A%3C/svg%3E") 0 14 0 14 fill / 0 14px 0 14px stretch !important;
+  background: none !important; border: 0 solid transparent !important; box-shadow: none !important; padding-inline: 16px; color: #d6e2e8; font-family: "Michroma", var(--me-font-display), sans-serif; letter-spacing: 0;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2224%22 viewBox=%220 0 40 24%22 preserveAspectRatio=%22none%22%3E%0A  %3Cdefs%3E%0A    %3ClinearGradient id=%22z%22 x1=%220%22 y1=%220%22 x2=%2240%22 y2=%220%22 gradientUnits=%22userSpaceOnUse%22%3E%0A      %3Cstop offset=%220%22 stop-color=%22%23a6dcf1%22/%3E%3Cstop offset=%22.1%22 stop-color=%22%235fb3dc%22/%3E%3Cstop offset=%22.25%22 stop-color=%22%232a7ab3%22/%3E%3Cstop offset=%22.4%22 stop-color=%22%231a5c93%22/%3E%0A      %3Cstop offset=%22.6%22 stop-color=%22%231a5c93%22/%3E%3Cstop offset=%22.75%22 stop-color=%22%232a7ab3%22/%3E%3Cstop offset=%22.9%22 stop-color=%22%235fb3dc%22/%3E%3Cstop offset=%221%22 stop-color=%22%23a6dcf1%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22f%22 x1=%220%22 y1=%220%22 x2=%2240%22 y2=%220%22 gradientUnits=%22userSpaceOnUse%22%3E%0A      %3Cstop offset=%220%22 stop-color=%22%23a6dcf1%22/%3E%3Cstop offset=%22.33%22 stop-color=%22%237cc6e8%22/%3E%3Cstop offset=%22.42%22 stop-color=%22%232a93d2%22/%3E%0A      %3Cstop offset=%22.58%22 stop-color=%22%232a93d2%22/%3E%3Cstop offset=%22.67%22 stop-color=%22%237cc6e8%22/%3E%3Cstop offset=%221%22 stop-color=%22%23a6dcf1%22/%3E%3C/linearGradient%3E%0A    %3ClinearGradient id=%22p%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23123f6e%22/%3E%3Cstop offset=%22.55%22 stop-color=%22%23134879%22/%3E%3Cstop offset=%221%22 stop-color=%22%231a5c95%22/%3E%3C/linearGradient%3E%0A  %3C/defs%3E%0A  %3Crect x=%22.5%22 y=%22.5%22 width=%2239%22 height=%2223%22 fill=%22url(%23z)%22 stroke=%22url(%23f)%22/%3E%0A  %3Cpath d=%22M14 3H26L35 6V18L26 21H14L5 18V6Z%22 fill=%22url(%23p)%22/%3E%0A%3C/svg%3E") 0 16 0 16 fill / 0 16px 0 16px stretch !important;
 }
 html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"])::before,
 html[data-me="me1"] :is(.btn-solid, .me-foot .btn, .btn-group:not(.me-onoff) > .btn:not(.btn-check)):not([class*="theme-"])::after { display: none !important; }
@@ -473,12 +475,16 @@ html[data-me="me3"][data-bs-theme="dark"] .me-keys-head {
 html[data-me="me3"][data-bs-theme="dark"] .me-keys .me-row.selected .key-cell { border-color: #e8341c; background: #4a0714; box-shadow: 0 0 6px rgb(255 60 40 / 45%); }
 
 /* ME2 key bindings (refs/me2/ea/key-bindings): header is a horizontal copper fade, cells are NOT pills - only thin column separators */
+/* ME2 key-bindings header: dark copper bar darkening to the right, thin bright top edge that fades out (measured at 3x) */
 html[data-me="me2"] .me-keys-head {
-  background: linear-gradient(90deg, rgb(160 96 46 / 88%) 0%, rgb(118 70 34 / 60%) 55%, rgb(60 35 20 / 12%) 100%) !important;
-  border: 0; border-top: 1px solid #b9703a; border-left: 1px solid #b9703a; border-radius: 0; color: #e6cda0; min-height: 26px;
+  background: linear-gradient(112deg, transparent 6%, rgb(255 185 120 / 24%) 9%, transparent 13%), linear-gradient(180deg, rgb(255 190 120 / 7%), transparent 45%), linear-gradient(90deg, #5c3a22 0%, #4d301f 30%, #2d1c15 48%, #1f130f 62%, #130a0b 100%) !important;
+  border: 0; border-top: 1px solid transparent; border-left: 1px solid rgb(185 112 58 / 55%); border-radius: 0; color: #e6cda0; min-height: 26px;
+  border-image: linear-gradient(90deg, #c47b40, rgb(196 123 64 / 35%) 45%, transparent 85%) 1 0 0 0;
 }
+/* each key row and cell starts with a short copper line on top that fades out to the right */
+html[data-me="me2"] .me-keys .me-row:not(.selected) { border-bottom: 0; background: linear-gradient(90deg, rgb(205 130 70 / 70%), transparent) 0 0 / 46px 1px no-repeat; }
 html[data-me="me2"] .me-keys .key-cell, html[data-me="me2"] .me-keys .me-row.selected .key-cell {
-  background: none !important; border: 0; border-left: 1px solid rgb(214 150 90 / 28%); border-top: 0; border-radius: 0; color: inherit; box-shadow: none; font-family: inherit; font-weight: 400;
+  background: linear-gradient(90deg, rgb(205 130 70 / 70%), transparent) 0 0 / 40px 1px no-repeat !important; border: 0; border-left: 1px solid rgb(214 150 90 / 28%); border-top: 0; border-radius: 0; color: inherit; box-shadow: none; font-family: inherit; font-weight: 400;
 }
 html[data-me="me2"] .me-keys .me-row.selected .key-cell { color: #96df59; }
 
@@ -509,8 +515,12 @@ html[data-me="me1"][data-bs-theme="dark"] .me-desc:not(#a):not(#b) {
 /* ==========================================================================
    LIST SCROLLBAR as its own element (.me-scroll): a different SVG thumb per game (assets/skins/scroll-*.svg)
    ========================================================================== */
-html[data-me="me3"] .me-scroll > i:not(#a) { left: calc(50% - 1px); transform: none; margin-top: 3px; width: 9px; height: 40px; border: 0; border-radius: 0; box-shadow: none;
+html[data-me="me3"] .me-scroll > i:not(#a) { left: -3.5px; top: 0; transform: none; margin-top: 6px; width: 13px; height: 35px; border: 0; border-radius: 0; box-shadow: none;
   background: url("../assets/skins/scroll-thumb-me3.svg") 0 0 / 100% 100% no-repeat; filter: drop-shadow(0 0 3px rgb(255 60 40 / 75%)); }
+/* ME3 track end caps: small glowing salmon squares at both ends of the line */
+html[data-me="me3"] .me-scroll:not(#a)::before, html[data-me="me3"] .me-scroll:not(#a)::after { content: ""; position: absolute; left: -1px; width: 4px; height: 5px; background: #f6b4a2; box-shadow: 0 0 3px rgb(255 90 60 / 80%); }
+html[data-me="me3"] .me-scroll:not(#a)::before { top: 0; }
+html[data-me="me3"] .me-scroll:not(#a)::after { bottom: 0; }
 html[data-me="me2"] .me-scroll > i:not(#a) { left: calc(50% - 1px); transform: none; margin-top: -23px; width: 10px; height: 56px; border: 0; border-radius: 0; box-shadow: none;
   background: url("../assets/skins/scroll-thumb-me2.svg") 0 0 / 100% 100% no-repeat; }
 html[data-me="me2"] .me-scroll:not(#a) { background: #5b8651; width: 2px; }
@@ -555,7 +565,9 @@ html[data-me="me3"] .me-arrow.me-arrow.dim { filter: drop-shadow(0 0 2px #1d4a8c
 /* ME3 arrow: CSS filters run BEFORE masks, so a mask on the same element clips its own glow away.
    Fix: the element itself is unmasked (its own background is clipped away), the ::before carries mask + colour, the element's filter adds the glow. */
 html[data-me="me3"] .me-arrow.me-arrow {
-  -webkit-mask: none; mask: none; position: relative; -webkit-background-clip: text; background-clip: text;
+  /* !important: the state rules (selected / hover) set the colour with the `background` shorthand, which would reset the
+     clip and show the element's own square box behind the masked ::before */
+  -webkit-mask: none; mask: none; position: relative; -webkit-background-clip: text !important; background-clip: text !important;
 }
 html[data-me="me3"] .me-arrow.me-arrow::before {
   content: ""; position: absolute; inset: 0; background-color: inherit;

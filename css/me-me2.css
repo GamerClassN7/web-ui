@@ -125,6 +125,6 @@ html[data-me="me2"] .me-picker.boxed .me-picker-drop::after { background: #f6c58
 /* key bindings (ME2): orange header bar, rows with bracket corners */
 [data-me="me2"] .me-keys-head { background: linear-gradient(180deg, #6b4224, #3d2616); color: #e8c79a; border: 1px solid #a8632f; border-radius: 0; font-family: var(--me-font-body); font-size: .95rem; letter-spacing: 0; }
 [data-me="me2"] .me-keys .me-row { border-bottom: 1px solid rgb(139 88 48 / 25%); }
-[data-me="me2"] .me-keys .me-row.selected { background: rgb(80 110 40 / 28%); border: 1px solid #5b8651; clip-path: none; }
+/* selected key row = the same glossy green bar as the Options rows (refs/me2/ea/key-bindings-picture-5.png) */
 [data-me="me2"] .key-cell { position: relative; display: block; text-align: center; border-top: 1px solid rgb(229 165 92 / 40%); }
 [data-me="me2"] .me-keys-cols { color: var(--me-lime); }

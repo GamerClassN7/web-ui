@@ -1,424 +1,134 @@
 <!doctype html>
-<html lang="cs" data-me="me3" data-bs-theme="dark">
+<html lang="en" data-me="me3" data-bs-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ME UI Kit · Bootstrap 6 × Mass Effect</title>
+  <meta name="description" content="Bootstrap 6 restyled as the Mass Effect 1 / 2 / 3 user interface, in dark and light mode.">
 
-  <!-- Fonts (stand-ins for the game fonts: Michroma ~ BioMass headings, Source Sans 3 ~ Myriad Pro) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@500;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Bootstrap 6.0.0-alpha.1 (npm tag "next", newest 6.x available) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css">
 
-  <!-- ME customisation layers (unlayered, so they win over Bootstrap's @layer styles) -->
-  <link rel="stylesheet" href="css/me-theme.css">    <!-- palettes + base overrides (ME2, ME3) -->
-  <link rel="stylesheet" href="css/me-widgets.css">  <!-- game widgets + remaining components -->
-  <link rel="stylesheet" href="css/me-me2.css">      <!-- ME2 anatomy -->
-  <link rel="stylesheet" href="css/me-me1.css">      <!-- ME1 palette + anatomy -->
-  <link rel="stylesheet" href="css/me-shapes.css">   <!-- SVG arrows + symmetric On/Off radii (keep last) -->
-
-  <!-- Theme switcher (in <head> to avoid a flash of the wrong theme) -->
+  <link rel="stylesheet" href="css/me-theme.css">
+  <link rel="stylesheet" href="css/me-widgets.css">
+  <link rel="stylesheet" href="css/me-me2.css">
+  <link rel="stylesheet" href="css/me-me1.css">
+  <link rel="stylesheet" href="css/me-shapes.css">
   <script src="js/me.js"></script>
+
+  <style>
+    .lp-hero { padding: 4rem 0 2.5rem; }
+    .lp-hero p { max-width: 46rem; color: var(--bs-fg-3); font-size: 1.1rem; }
+    .lp-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+    .lp-grid .me-panel { margin: 0; display: flex; flex-direction: column; }
+    .lp-grid .me-panel p { color: var(--bs-fg-3); flex: 1; }
+    .lp-list { margin: 0; padding-left: 1.1rem; color: var(--bs-fg-2); }
+    .lp-list li { margin-bottom: .4rem; }
+    .lp-code { display: block; padding: .75rem 1rem; background: var(--me-void); border: 1px solid var(--bs-border-color); color: var(--bs-fg-1); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .lp-foot { color: var(--bs-fg-3); font-size: .85rem; padding: 2rem 0 3rem; }
+  </style>
 </head>
 <body>
 
-<!-- ===== Top bar: style + mode switcher ===== -->
 <header class="me-topbar">
   <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3 py-2">
     <div class="me-brand">ME&nbsp;UI&nbsp;KIT <small class="ms-2">Bootstrap 6 α1</small></div>
-
     <div class="d-flex flex-wrap align-items-center gap-3">
       <div class="d-flex align-items-center gap-2">
-        <span class="me-seg-label">Styl</span>
-        <div class="me-seg" role="group" aria-label="Styl UI">
+        <span class="me-seg-label">Style</span>
+        <div class="me-seg" role="group" aria-label="UI style">
           <button type="button" data-set-style="me1" aria-pressed="false">ME 1</button>
           <button type="button" data-set-style="me2" aria-pressed="false">ME 2</button>
           <button type="button" data-set-style="me3" aria-pressed="true">ME 3</button>
         </div>
       </div>
       <div class="d-flex align-items-center gap-2">
-        <span class="me-seg-label">Režim</span>
-        <div class="me-seg" role="group" aria-label="Režim">
+        <span class="me-seg-label">Mode</span>
+        <div class="me-seg" role="group" aria-label="Mode">
           <button type="button" data-set-mode="light" aria-pressed="false">Light</button>
           <button type="button" data-set-mode="dark" aria-pressed="true">Dark</button>
         </div>
       </div>
-      <a class="me-seg-label" href="mockups/me3.html" style="text-decoration:underline">mockupy ↗</a>
     </div>
   </div>
 </header>
 
 <main class="container">
 
-  <!-- ===== Hero ===== -->
-  <section class="pt-5 pb-3">
-    <h1 class="me-title mb-2">Appearance</h1>
-    <p class="mb-3" style="color: var(--bs-fg-3)">Ukázka komponent Bootstrapu 6 ve stylu uživatelského rozhraní Mass Effect.
-      Aktuálně: <strong id="me-current" style="color: var(--bs-fg-1)"></strong></p>
-    <div class="d-flex flex-wrap gap-3">
-      <span class="me-swatch"><i style="background: var(--bs-fg-body)"></i>text</span>
-      <span class="me-swatch"><i style="background: var(--bs-primary-bg)"></i>primary</span>
-      <span class="me-swatch"><i style="background: var(--bs-danger-bg)"></i>danger</span>
-      <span class="me-swatch"><i style="background: var(--bs-warning-bg)"></i>warning</span>
-      <span class="me-swatch"><i style="background: var(--bs-success-bg)"></i>success</span>
-      <span class="me-swatch"><i style="background: var(--bs-bg-1)"></i>panel</span>
-      <span class="me-swatch"><i style="background: var(--bs-border-color)"></i>border</span>
+  <section class="lp-hero">
+    <h1 class="me-title mb-3">ME UI Kit</h1>
+    <p>Bootstrap 6 (6.0.0-alpha.1) restyled as the user interface of
+      <strong>Mass Effect 1, 2 and 3</strong> – each style in dark and light mode.
+      Switch the style and mode at the top and the whole page follows.</p>
+    <p class="mb-4" style="font-size:.95rem">Current: <strong id="me-current" style="color: var(--bs-fg-1)"></strong></p>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="btn btn-solid theme-primary btn-lg" href="showcase.html">Open the showcase</a>
+      <a class="btn btn-outline theme-primary btn-lg" href="mockups/me3.html">Mockups</a>
+      <a class="btn btn-link btn-lg" href="https://github.com/GamerClassN7/web-ui">GitHub ↗</a>
     </div>
   </section>
 
-  <!-- ===== Mission Computer ===== -->
-  <section class="me-panel" id="wheel">
-    <h2 class="me-panel-title">Mission Computer</h2>
-    <div class="me-wheel">
-      <a class="t" href="#wheel">Save</a>
-      <a class="l" href="#wheel">Journal</a><a class="r" href="#wheel">Main Menu</a>
-      <a class="l" href="#wheel">Squad</a><a class="r" href="#wheel">Options</a>
-      <a class="l" href="#wheel">Map</a><a class="r active" href="#wheel">Resume</a>
-      <a class="b" href="#wheel">Load</a>
-    </div>
-    <div class="me-wheel-stats"><span><b>137275</b>Credits</span><span><b>6</b>Medi-Gel</span></div>
-    <div class="d-flex justify-content-end mt-4">
-      <div class="btn-group" role="group" aria-label="Spodní lišta">
-        <a class="btn btn-solid" href="#wheel">Exit Game</a><a class="btn btn-solid" href="#wheel">Photo Mode</a><a class="btn btn-solid" href="#wheel">Resume</a>
+  <section class="mb-5">
+    <div class="lp-grid">
+      <div class="me-panel">
+        <h2 class="me-panel-title">Showcase</h2>
+        <p>Every component on one page: Mission Computer, the Options screen, buttons, forms, navigation, cards, dialogs…</p>
+        <div><a class="btn btn-solid" href="showcase.html">Open</a></div>
+      </div>
+      <div class="me-panel">
+        <h2 class="me-panel-title">Mockup ME1</h2>
+        <p>The Mass Effect 1 Options screens rebuilt in HTML/CSS – side by side, overlaid or as a difference against the reference.</p>
+        <div><a class="btn btn-solid" href="mockups/me1.html">Open</a></div>
+      </div>
+      <div class="me-panel">
+        <h2 class="me-panel-title">Mockup ME2</h2>
+        <p>Mass Effect 2 Options – copper panels, green highlights and labels measured against the reference screenshots.</p>
+        <div><a class="btn btn-solid" href="mockups/me2.html">Open</a></div>
+      </div>
+      <div class="me-panel">
+        <h2 class="me-panel-title">Mockup ME3</h2>
+        <p>Mass Effect 3 Options – rows, pickers, footer buttons and scrollbar matched to the pixel.</p>
+        <div><a class="btn btn-solid" href="mockups/me3.html">Open</a></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Options screen ===== -->
-  <section class="me-panel" id="options">
-    <h2 class="me-panel-title">Options</h2>
-    <p class="me-sub">Graphics</p>
-    <div class="me-rows">
-      <div class="me-row selected"><span class="me-row-label">Resolution</span>
-        <div class="me-picker boxed"><span class="me-picker-value">1680x1050</span><span class="me-picker-drop"></span></div><span></span></div>
-      <div class="me-row"><span class="me-row-label">Windowed Mode</span>
-        <div class="me-picker"><button class="me-arrow" aria-label="předchozí"></button><span class="me-picker-value">Windowed</span><button class="me-arrow r dim" aria-label="další"></button></div><span></span></div>
-      <div class="me-row"><span class="me-row-label">Dynamic Shadows</span>
-        <div class="me-onoff btn-group"><label class="btn btn-check"><input type="radio" name="o1" checked>On</label><label class="btn btn-check"><input type="radio" name="o1">Off</label></div><span></span></div>
-      <div class="me-row"><span class="me-row-label">Motion Blur</span>
-        <div class="me-onoff btn-group"><label class="btn btn-check"><input type="radio" name="o2">On</label><label class="btn btn-check"><input type="radio" name="o2" checked>Off</label></div><span></span></div>
-      <div class="me-row"><span class="me-row-label">Music Volume</span>
-        <div class="me-picker"><button class="me-arrow" aria-label="méně"></button><div class="form-range"><input class="form-range-input" type="range" min="0" max="100" value="100" aria-label="Music Volume"></div><button class="me-arrow r dim" aria-label="více"></button></div><span class="me-row-aside">100%</span></div>
-      <div class="me-row disabled"><span class="me-row-label">Framerate Cap</span>
-        <div class="me-picker"><button class="me-arrow dim"></button><span class="me-picker-value">240</span><button class="me-arrow r dim"></button></div><span></span></div>
-      <div class="me-scroll"><i></i></div>
-    </div>
-    <div class="me-desc">Change the game's screen size/resolution.</div>
-    <div class="d-flex justify-content-end mt-3"><div class="btn-group"><a class="btn btn-solid" href="#options">Reset to Defaults</a><a class="btn btn-solid" href="#options">Back</a></div></div>
-  </section>
-
-  <!-- ===== Buttons ===== -->
-  <section class="me-panel" id="buttons">
-    <h2 class="me-panel-title">Tlačítka</h2>
-    <p class="lead">Solid, outline, subtle a link varianty; velikosti; stavy; skupiny.</p>
-
-    <div class="d-flex flex-wrap gap-2 mb-3">
-      <button class="btn btn-solid theme-primary">Primary</button>
-      <button class="btn btn-solid theme-success">Success</button>
-      <button class="btn btn-solid theme-warning">Warning</button>
-      <button class="btn btn-solid theme-danger">Danger</button>
-      <button class="btn btn-solid theme-info">Info</button>
-    </div>
-    <div class="d-flex flex-wrap gap-2 mb-3">
-      <button class="btn btn-outline theme-primary">Outline</button>
-      <button class="btn btn-outline theme-danger">Outline</button>
-      <button class="btn btn-subtle theme-primary">Subtle</button>
-      <button class="btn btn-subtle theme-warning">Subtle</button>
-      <button class="btn btn-link">Link button</button>
-    </div>
-    <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
-      <button class="btn btn-solid theme-primary btn-xs">XS</button>
-      <button class="btn btn-solid theme-primary btn-sm">Small</button>
-      <button class="btn btn-solid theme-primary">Default</button>
-      <button class="btn btn-solid theme-primary btn-lg">Large</button>
-      <button class="btn btn-solid theme-primary" disabled>Disabled</button>
-      <button class="btn btn-solid theme-primary active">Active</button>
-    </div>
-
-    <h3>Skupiny tlačítek</h3>
-    <div class="btn-toolbar mb-3">
-      <div class="btn-group" role="group" aria-label="Horizontální skupina">
-        <button class="btn btn-solid">Reset</button><button class="btn btn-solid">Accept</button><button class="btn btn-solid">Back</button>
-      </div>
-      <div class="btn-group" role="group" aria-label="Přepínače">
-        <label class="btn btn-check"><input type="radio" name="bg" checked>Left</label>
-        <label class="btn btn-check"><input type="radio" name="bg">Middle</label>
-        <label class="btn btn-check"><input type="radio" name="bg">Right</label>
-      </div>
-      <div class="btn-group btn-group-sm" role="group" aria-label="Malá skupina">
-        <button class="btn btn-solid">1</button><button class="btn btn-solid active">2</button><button class="btn btn-solid">3</button>
-      </div>
-    </div>
-    <div class="btn-group-vertical" role="group" aria-label="Vertikální skupina">
-      <button class="btn btn-solid">Powers</button><button class="btn btn-solid">Weapons</button><button class="btn btn-solid active">Appearance</button><button class="btn btn-solid">Store</button>
-    </div>
-  </section>
-
-  <!-- ===== Text inputs ===== -->
-  <section class="me-panel" id="inputs">
-    <h2 class="me-panel-title">Textová pole a inputy</h2>
-    <p class="lead">Text, textarea, select, input-group, soubor, barva, validace.</p>
+  <section class="me-panel">
+    <h2 class="me-panel-title">What’s inside</h2>
     <div class="row g-4">
       <div class="md:col-6">
-        <div class="form-group mb-3">
-          <label class="form-label" for="f-name">Jméno</label>
-          <input id="f-name" class="form-control" type="text" value="Commander Shepard" placeholder="Zadejte jméno">
-          <div class="form-text">Zobrazí se v logu mise.</div>
-        </div>
-        <div class="form-group mb-3">
-          <label class="form-label" for="f-code">Code</label>
-          <input id="f-code" class="form-control" type="text" value="7Q1.D9H.M66.F87.JDQ.94M.1D9.111.L46.44H.FG9.1JG">
-        </div>
-        <div class="form-group mb-3">
-          <label class="form-label" for="f-ta">Poznámka</label>
-          <textarea id="f-ta" class="form-control" rows="3" placeholder="Shepard escaped attack on the facility…"></textarea>
-        </div>
-        <div class="form-group mb-3">
-          <label class="form-label" for="f-dis">Zakázané pole</label>
-          <input id="f-dis" class="form-control" type="text" value="Nelze upravit" disabled>
-        </div>
+        <ul class="lp-list">
+          <li><strong>3 styles × 2 modes</strong> – switched with the <code>data-me</code> and <code>data-bs-theme</code> attributes, remembered in localStorage.</li>
+          <li><strong>Plain CSS layers</strong> on top of Bootstrap: <code>me-theme</code>, <code>me-widgets</code>, <code>me-me1</code>, <code>me-me2</code>, <code>me-shapes</code>.</li>
+          <li><strong>Game widgets</strong> – the Mission Computer wheel, Options rows, pickers with arrows, On/Off toggles, sliders.</li>
+          <li><strong>SVG icons and 9-slice skins</strong> for panels, buttons and scrollbars.</li>
+          <li><strong>Measuring tools</strong> in Python (<code>tools/</code>) to compare the mockups with the reference.</li>
+        </ul>
       </div>
       <div class="md:col-6">
-        <div class="form-group mb-3">
-          <label class="form-label" for="f-class">Třída</label>
-          <select id="f-class" class="form-control">
-            <option>Soldier</option><option selected>Vanguard</option><option>Infiltrator</option><option>Adept</option><option>Engineer</option><option>Sentinel</option>
-          </select>
-        </div>
-        <div class="form-group mb-3">
-          <label class="form-label" for="f-cr">Kredity</label>
-          <div class="input-group">
-            <span class="input-group-text">₢</span>
-            <input id="f-cr" class="form-control" type="number" value="1750">
-            <button class="btn btn-solid theme-primary" type="button">Koupit</button>
-          </div>
-        </div>
-        <div class="form-group mb-3">
-          <label class="form-label" for="f-ok">Platné pole</label>
-          <input id="f-ok" class="form-control is-valid" type="text" value="N7 Greaves">
-          <div class="valid-feedback" style="display:block">Vypadá dobře.</div>
-        </div>
-        <div class="form-group mb-3">
-          <label class="form-label" for="f-bad">Neplatné pole</label>
-          <input id="f-bad" class="form-control is-invalid" type="text" value="???">
-          <div class="invalid-feedback" style="display:block">Neplatný kód vzhledu.</div>
-        </div>
-        <div class="row g-3">
-          <div class="col-6"><label class="form-label" for="f-file">Soubor</label><input id="f-file" class="form-control" type="file"></div>
-          <div class="col-6"><label class="form-label" for="f-color">Barva</label><input id="f-color" class="form-control form-control-color" type="color" value="#41dafc"></div>
-        </div>
+        <p class="me-sub mb-2">Usage</p>
+        <code class="lp-code">&lt;html data-me="me3" data-bs-theme="dark"&gt;
+&lt;link rel="stylesheet" href="bootstrap.min.css"&gt;
+&lt;link rel="stylesheet" href="css/me-theme.css"&gt;
+&lt;link rel="stylesheet" href="css/me-widgets.css"&gt;
+&lt;link rel="stylesheet" href="css/me-me2.css"&gt;
+&lt;link rel="stylesheet" href="css/me-me1.css"&gt;
+&lt;link rel="stylesheet" href="css/me-shapes.css"&gt;
+&lt;script src="js/me.js"&gt;&lt;/script&gt;</code>
+        <p class="me-sub mt-3 mb-2">Run locally</p>
+        <code class="lp-code">python -m http.server 8765</code>
       </div>
-    </div>
-  </section>
-
-  <!-- ===== Checks, radios, switches, ranges ===== -->
-  <section class="me-panel" id="controls">
-    <h2 class="me-panel-title">Přepínače a posuvníky</h2>
-    <p class="lead">Checkbox, radio, switch, a posuvníky tak, jak je vykresluje hra (se šipkami, jezdec je menší než dráha).</p>
-    <div class="row g-4 mb-4">
-      <div class="md:col-4">
-        <h3>Checkbox</h3>
-        <div class="d-flex align-items-center gap-2 mb-2"><input class="check" type="checkbox" id="c1" checked><label for="c1">Dynamic Shadows</label></div>
-        <div class="d-flex align-items-center gap-2 mb-2"><input class="check" type="checkbox" id="c2"><label for="c2">Motion Blur</label></div>
-        <div class="d-flex align-items-center gap-2 mb-2"><input class="check theme-danger" type="checkbox" id="c3" checked><label for="c3">VSYNC (danger)</label></div>
-        <div class="d-flex align-items-center gap-2"><input class="check" type="checkbox" id="c4" disabled><label for="c4">Disabled</label></div>
-      </div>
-      <div class="md:col-4">
-        <h3>Radio</h3>
-        <div class="d-flex align-items-center gap-2 mb-2"><input class="radio" type="radio" name="r" id="r1" checked><label for="r1">Windowed</label></div>
-        <div class="d-flex align-items-center gap-2 mb-2"><input class="radio" type="radio" name="r" id="r2"><label for="r2">Fullscreen</label></div>
-        <div class="d-flex align-items-center gap-2 mb-2"><input class="radio" type="radio" name="r" id="r3"><label for="r3">Borderless</label></div>
-      </div>
-      <div class="md:col-4">
-        <h3>Switch</h3>
-        <div class="d-flex align-items-center gap-2 mb-2"><span class="switch"><input type="checkbox" id="s1" checked></span><label for="s1">Film Grain</label></div>
-        <div class="d-flex align-items-center gap-2 mb-2"><span class="switch"><input type="checkbox" id="s2"></span><label for="s2">Antialiasing</label></div>
-        <div class="d-flex align-items-center gap-2"><span class="switch switch-lg"><input type="checkbox" id="s3" checked></span><label for="s3">Ambient Occlusion</label></div>
-      </div>
-    </div>
-    <h3>Posuvníky</h3>
-    <div class="me-rows">
-      <div class="me-row"><span class="me-row-label">Dialog Volume</span>
-        <div class="me-picker"><button class="me-arrow" aria-label="méně"></button><div class="form-range"><input class="form-range-input" type="range" min="0" max="100" value="100" aria-label="Dialog Volume"></div><button class="me-arrow r dim" aria-label="více"></button></div><span class="me-row-aside">100%</span></div>
-      <div class="me-row"><span class="me-row-label">Mouse Sensitivity</span>
-        <div class="me-picker"><button class="me-arrow"></button><div class="form-range"><input class="form-range-input" type="range" min="0" max="100" value="50" aria-label="Mouse Sensitivity"></div><button class="me-arrow r"></button></div><span class="me-row-aside">50%</span></div>
-      <div class="me-row selected"><span class="me-row-label">Music Volume</span>
-        <div class="me-picker"><button class="me-arrow"></button><div class="form-range"><input class="form-range-input" type="range" min="0" max="100" value="100" aria-label="Music Volume"></div><button class="me-arrow r dim"></button></div><span class="me-row-aside">100%</span></div>
-    </div>
-  </section>
-
-  <!-- ===== Progress, badges, chips, spinners, alerts, toasts ===== -->
-  <section class="me-panel" id="status">
-    <h2 class="me-panel-title">Ukazatele a upozornění</h2>
-    <div class="row g-4 align-items-center mb-4">
-      <div class="md:col-6">
-        <div class="progress mb-3" role="progressbar" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar theme-primary" style="width: 16%">6189 XP</div></div>
-        <div class="progress mb-3" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar theme-danger" style="width: 70%">70 %</div></div>
-        <div class="progress" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar theme-success" style="width: 45%">45 %</div></div>
-      </div>
-      <div class="md:col-6">
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <span class="badge theme-primary">Paragon</span><span class="badge theme-danger">Renegade</span><span class="badge theme-warning">Warning</span>
-          <span class="badge theme-success">Success</span><span class="badge badge-subtle theme-primary">Subtle</span><span class="badge badge-outline theme-primary">Outline</span>
-        </div>
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          <span class="chip theme-primary">Biotic Charge</span><span class="chip theme-primary">Shockwave</span><span class="chip theme-primary">Nova</span>
-        </div>
-        <div class="d-flex align-items-center gap-3">
-          <div class="spinner-border" role="status" aria-label="Načítání"></div>
-          <span class="avatar">SH</span><span class="avatar avatar-lg">N7</span>
-          <span class="placeholder col-4"></span>
-        </div>
-      </div>
-    </div>
-    <div class="vstack gap-2 mb-4">
-      <div class="alert theme-primary" role="alert">Primary — Custom Facial Reconstruction: kliknutím na prvek ho upravíte.</div>
-      <div class="alert theme-success" role="alert">Success — Změny vzhledu byly uloženy.</div>
-      <div class="alert theme-warning" role="alert">Warning — Hrozí ztráta neuložených změn.</div>
-      <div class="alert theme-danger" role="alert">Danger — Nepodařilo se načíst profil.</div>
-    </div>
-    <div class="me-preview">
-      <div class="toast show" role="status"><div class="toast-header"><strong class="me-auto">Codex</strong><button class="btn-close" aria-label="Zavřít"></button></div><div class="toast-body">New entry added: Mass Accelerators.</div></div>
-    </div>
-  </section>
-
-  <!-- ===== Navigation ===== -->
-  <section class="me-panel" id="panels">
-    <h2 class="me-panel-title">Navigace a menu</h2>
-    <p class="lead">Záložky, pills, breadcrumb, stránkování, stepper, list-group jako herní menu, accordion a menu.</p>
-
-    <ul class="nav nav-tabs mb-4" role="tablist">
-      <li class="nav-item"><a class="nav-link active" href="#panels" aria-current="page">Character</a></li>
-      <li class="nav-item"><a class="nav-link" href="#panels">Appearance</a></li>
-      <li class="nav-item"><a class="nav-link" href="#panels">Codex</a></li>
-      <li class="nav-item"><a class="nav-link" href="#panels">Options</a></li>
-    </ul>
-    <ul class="nav nav-pills mb-4">
-      <li class="nav-item"><a class="nav-link active" href="#panels">Powers</a></li>
-      <li class="nav-item"><a class="nav-link" href="#panels">Weapons</a></li>
-      <li class="nav-item"><a class="nav-link" href="#panels">Store</a></li>
-    </ul>
-    <ol class="breadcrumb mb-3">
-      <li class="breadcrumb-item"><a class="breadcrumb-link" href="#panels">Normandy</a></li><li class="breadcrumb-divider" aria-hidden="true"></li>
-      <li class="breadcrumb-item"><a class="breadcrumb-link" href="#panels">Deck 2</a></li><li class="breadcrumb-divider" aria-hidden="true"></li>
-      <li class="breadcrumb-item"><a class="breadcrumb-link active" href="#panels" aria-current="page">Combat Information Center</a></li>
-    </ol>
-    <nav aria-label="Stránkování" class="mb-4">
-      <ul class="pagination">
-        <li class="page-item disabled"><a class="page-link" href="#panels">‹</a></li>
-        <li class="page-item active"><a class="page-link" href="#panels">1</a></li>
-        <li class="page-item"><a class="page-link" href="#panels">2</a></li>
-        <li class="page-item"><a class="page-link" href="#panels">3</a></li>
-        <li class="page-item"><a class="page-link" href="#panels">›</a></li>
-      </ul>
-    </nav>
-
-    <div class="row g-4">
-      <div class="md:col-4">
-        <h3>List group</h3>
-        <div class="list-group">
-          <a href="#panels" class="list-group-item list-group-item-action active" aria-current="true">Powers</a>
-          <a href="#panels" class="list-group-item list-group-item-action">Weapons</a>
-          <a href="#panels" class="list-group-item list-group-item-action">Appearance</a>
-          <a href="#panels" class="list-group-item list-group-item-action">Equipment</a>
-          <a href="#panels" class="list-group-item list-group-item-action">Store</a>
-        </div>
-        <h3 class="mt-4">Stepper</h3>
-        <ol class="stepper">
-          <li class="stepper-item active">Class</li><li class="stepper-item active">Appearance</li><li class="stepper-item">Origin</li><li class="stepper-item">Confirm</li>
-        </ol>
-      </div>
-      <div class="md:col-8">
-        <h3>Accordion</h3>
-        <div class="accordion mb-4">
-          <details class="accordion-item" open><summary class="accordion-header">Mass Accelerators<span class="accordion-icon"></span></summary><div class="accordion-body">In an age of kinetic barriers, most firefights were won by the side who could put the most rounds down-range the fastest.</div></details>
-          <details class="accordion-item"><summary class="accordion-header">Small Arms<span class="accordion-icon"></span></summary><div class="accordion-body">Thermal clips replaced heat sinks.</div></details>
-          <details class="accordion-item"><summary class="accordion-header">Heavy Weapons<span class="accordion-icon"></span></summary><div class="accordion-body">Mass Effect fields everywhere.</div></details>
-        </div>
-        <div class="row g-4">
-          <div class="col-6 me-preview">
-            <h3>Menu</h3>
-            <div class="menu show">
-              <div class="menu-header">Squad</div>
-              <a class="menu-item active" href="#panels">Garrus</a>
-              <a class="menu-item" href="#panels">Tali</a>
-              <a class="menu-item disabled" href="#panels">Mordin</a>
-              <div class="menu-divider"></div>
-              <a class="menu-item" href="#panels">Dismiss</a>
-            </div>
-          </div>
-          <div class="col-6 me-preview">
-            <h3>Tooltip &amp; popover</h3>
-            <div class="tooltip show mb-3" role="tooltip"><div class="tooltip-inner">Hold R to rotate</div></div>
-            <div class="popover show" role="dialog"><div class="popover-header">N7 Greaves</div><div class="popover-body">Increases health by 5 %.</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Scrollbars ===== -->
-  <section class="me-panel" id="scroll">
-    <h2 class="me-panel-title">Posuvníky stránky (scrollbary)</h2>
-    <p class="lead">Svislý i vodorovný posun ve stylu hry: tenká linka a kapslový jezdec.</p>
-    <div class="me-scrollbox" tabindex="0" aria-label="Ukázka scrollbaru">
-      <div>
-        <p>Mathematically reviewing their combat logs, the geth found that in an age of kinetic barriers, most firefights were won by the side who could put the most rounds down-range the fastest.</p>
-        <p>Thermal clips replaced heat sinks, and the mass effect fields of every weapon were retuned for sustained fire across long engagements.</p>
-        <p>The Codex entry continues with historical notes about the Systems Alliance, the Citadel Council and the first contact war with the turians.</p>
-        <p>Shepard escaped attack on the facility and was later recovered by Cerberus after two years in stasis.</p>
-        <p>Mordin Solus: "Had to be me. Someone else might have gotten it wrong."</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Cards, dialog, table ===== -->
-  <section class="me-panel" id="cards">
-    <h2 class="me-panel-title">Karty, dialog a tabulka</h2>
-    <div class="row g-4 mb-4">
-      <div class="md:col-6">
-        <div class="card">
-          <div class="card-header">Kit</div>
-          <div class="card-body">
-            <h3 class="h5 mb-2">Mass Accelerators</h3>
-            <p class="mb-3">Mathematically reviewing their combat logs, the geth found that in an age of kinetic barriers, most firefights were won by the side who could put the most rounds down-range the fastest.</p>
-            <div class="btn-group"><button class="btn btn-solid">Options</button><button class="btn btn-solid">Back</button></div>
-          </div>
-        </div>
-      </div>
-      <div class="md:col-6 me-preview">
-        <dialog class="dialog" open>
-          <div class="dialog-header"><h3 class="dialog-title">Odejít z mise?</h3><button class="btn-close" aria-label="Zavřít"></button></div>
-          <div class="dialog-body">Neuložený postup bude ztracen.</div>
-          <div class="dialog-footer d-flex gap-2 justify-content-end"><button class="btn btn-outline">Zrušit</button><button class="btn btn-solid theme-danger">Odejít</button></div>
-        </dialog>
-      </div>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-striped table-hover">
-        <thead><tr><th>Zbraň</th><th>Typ</th><th class="text-end">Damage</th><th class="text-end">Cena</th></tr></thead>
-        <tbody>
-          <tr><td>M-27 Scimitar I</td><td>Shotgun</td><td class="text-end">78</td><td class="text-end">12 000</td></tr>
-          <tr><td>M-92 Mantis III</td><td>Sniper Rifle</td><td class="text-end">240</td><td class="text-end">32 500</td></tr>
-          <tr><td>M-100 Grenade Launcher</td><td>Heavy</td><td class="text-end">1000</td><td class="text-end">—</td></tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
 </main>
 
-<footer class="me-footer py-4 mt-4">
-  <div class="container d-flex flex-wrap justify-content-between gap-2">
-    <span>Barvy: [m] změřeno ze screenshotů hry, [d] odvozeno — viz komentáře v <code>css/</code>.</span>
-    <span>Fan project · žádné herní assety, jen CSS.</span>
-  </div>
+<footer class="container lp-foot">
+  Fan project, not affiliated with EA or BioWare. Mass Effect is a trademark of Electronic Arts Inc.
+  Michroma and Source Sans 3 only stand in for the game fonts.
 </footer>
 
-<!-- Bootstrap 6 alpha ships its JS bundle as an ES module -->
-<script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
