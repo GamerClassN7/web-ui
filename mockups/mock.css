@@ -250,3 +250,24 @@ html[data-bs-theme="light"] .scr-frame path.scr-desc { fill: #d5e6f0; }
 /* ME1: the game's display face is heavier than Michroma -> a light stroke on labels, values and the description */
 .stage[data-me="me1"] .me-row-label, .stage[data-me="me1"] .me-picker-value, .stage[data-me="me1"] .me-desc { -webkit-text-stroke: .3px currentColor; }
 .stage[data-me="me2"] .me-keys-head { margin-left: 10px; padding-left: 7px; }   /* header bar starts 7px further right, text stays */
+
+/* ================= interactive mockups ================= */
+.stage .me-row:not(.disabled):not(.group) { cursor: pointer; }
+.stage .me-row .me-arrow, .stage .me-onoff .btn-check, .stage .key-cell, .stage .me-foot .btn { cursor: pointer; }
+.stage .form-range-input { pointer-events: auto; cursor: ew-resize; }
+.mock-drop { position: absolute; z-index: 40; max-height: 180px; overflow: auto; display: flex; flex-direction: column; padding: 2px 0;
+  background: #071026; border: 1px solid #3b6fc0; box-shadow: 0 6px 18px rgb(0 0 0 / 55%); font-size: 13.5px; }
+.mock-drop > button { all: unset; padding: 3px 10px; color: #a9d4ea; cursor: pointer; white-space: nowrap; text-align: center; }
+.mock-drop > button:hover, .mock-drop > button:focus-visible { background: #12346b; color: #fff; }
+.mock-drop > button[aria-selected="true"] { background: #6e130f; color: #ffd08a; }
+.stage[data-me="me2"] ~ .mock-drop, .stage[data-me="me2"] .mock-drop { background: #1b0f0a; border-color: #c08a50; }
+.stage[data-me="me2"] .mock-drop > button { color: #f0c48a; }
+.stage[data-me="me2"] .mock-drop > button:hover { background: #4a2e1b; }
+.stage[data-me="me2"] .mock-drop > button[aria-selected="true"] { background: #3f5a25; color: #d8ffb0; }
+.stage[data-me="me1"] .mock-drop { background: #0b1d33; border-color: #4093ae; font: 700 10.5px "Michroma", sans-serif; }
+.stage[data-me="me1"] .mock-drop > button { color: #5fc3ec; text-align: left; }
+.stage[data-me="me1"] .mock-drop > button:hover { background: #133555; }
+.stage[data-me="me1"] .mock-drop > button[aria-selected="true"] { background: #8a3a12; color: #ffd2a8; }
+html[data-bs-theme="light"] .mock-drop { background: #f3f8fb; }
+html[data-bs-theme="light"] .mock-drop > button { color: #0e3955; }
+html[data-bs-theme="light"] .mock-drop > button:hover { background: #d3e6f0; }
