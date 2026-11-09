@@ -192,3 +192,61 @@ html[data-bs-theme="light"] .stage[data-me="me3"] .me-desc { background: linear-
 .stage[data-me="me1"] .me-scroll { top: -14px; }
 .stage img.n7-box { position: absolute; border: 0 !important; background: none !important; }
 .stage[data-me="me3"] .me-desc { border: 0 !important; border-radius: 4px 4px 0 0 !important; }
+
+/* ================= calibration pass (element-by-element registration against refs/<game>/ea) ================= */
+/* values next to sliders are right-aligned in the game ("100%" and "50%" share the right edge) */
+.stage[data-me="me3"] .me-row-aside { padding-left: 0; width: 48px; text-align: right; }
+.stage[data-me="me2"] .me-row-aside { padding-left: 0; width: 58px; text-align: right; }
+/* ME3: subtitle sits ~5px higher under "Options" */
+.stage[data-me="me3"] .scr-title small { margin-top: -2px; }
+/* ME2: subtitle is indented 4px; On/Off pair starts 3px further left and "Off" has a fixed column
+   (a wider first label such as "Auto" must not push it); left arrows sit 2px further out (slider arrows 4px) */
+.stage[data-me="me2"] .me-picker.has-onoff .me-onoff { margin-left: 15px; gap: 73px; }
+.stage[data-me="me2"] .me-picker.has-onoff .me-onoff > .btn-check:first-child { flex: none; width: 75px; justify-content: flex-start; }
+.stage[data-me="me2"] .me-picker > .me-arrow:first-child { translate: -2px 0; }
+.stage[data-me="me2"] .me-picker.has-onoff > .me-arrow:last-child { translate: 2px 0; }
+/* ME1: labels sit 2px lower, the drop triangle 2px further right */
+.stage[data-me="me1"] .me-row-label { position: relative; top: 2px; }
+.stage[data-me="me1"] .me-row.group .me-row-label { top: 0; }
+.stage[data-me="me1"] .me-picker-drop { translate: 2px 0; }
+.stage[data-me="me1"][data-screen="controls"] .me-picker:not(.slider) { top: 0; }
+.stage[data-me="me2"] .me-picker:not(.has-onoff):not(.boxed) > .me-arrow:first-child:has(+ .form-range) { translate: -4px 0; }
+.stage[data-me="me1"][data-screen="gameplay"] .me-picker-drop { translate: none; }
+/* ME3 scrollbar: track starts at the top cap, 3px below the first row */
+.stage[data-me="me3"] .me-scroll { top: 3px; }
+
+/* text metrics: ink box of every label/value measured against the reference (left/right edge, width ratio) */
+.stage[data-me="me3"] .scr-title b { letter-spacing: -.05em; }                        /* "Options" 8% narrower */
+.stage[data-me="me3"] .me-foot .btn { font-size: 11px; }                             /* "Reset to Defaults" 81px wide */
+.stage[data-me="me3"] .me-row-aside { font-size: 14.8px; }                            /* "100%" 7% wider */
+.stage[data-me="me2"] .scr-title small { font-size: 14.3px; margin-left: -2px; }      /* subtitle 15% wider, starts 2px left */
+.stage[data-me="me2"] .me-row-label { letter-spacing: .03em; }                        /* labels 7.5% wider */
+.stage[data-me="me2"] .me-picker-value { font-size: 16.3px; }                         /* values 4% narrower */
+.stage[data-me="me2"] .me-foot .btn { font-size: 12.3px; }                            /* footer 5% narrower */
+.stage[data-me="me2"] .me-row-aside { font-size: 14.3px; }                            /* "100%" 10% wider */
+.stage[data-me="me1"] .me-row { grid-template-columns: 287px 250px 1fr; padding-left: 160px; }   /* labels start 5px further left */
+.stage[data-me="me1"][data-screen="gameplay"] .me-row { grid-template-columns: 296px 250px 1fr; padding-left: 157px; }
+.stage[data-me="me1"] .me-row-label { letter-spacing: .075em; }                       /* labels ~10% wider, same height */
+.stage[data-me="me1"] .me-foot .btn { padding-bottom: 2px; letter-spacing: 0; font-size: 10px; -webkit-text-stroke: .35px currentColor; }  /* "Default": bold wide display face */
+.stage[data-me="me1"] .me1-val { font-size: 14px; position: relative; top: 1px; }     /* values 11% wider, 1-2px lower */
+.stage[data-me="me1"] .me-row .me-onoff.btn-group.btn-group > .btn-check { padding-top: 4px; } /* On/Off text 2px lower */
+.stage[data-me="me3"][data-screen="controls"] .me-picker { translate: 2px 0; }   /* this screen's picker column is 2px further right */
+.stage[data-me="me2"] .me-picker:not(.boxed) .me-picker-value { font-size: 19.3px; }        /* non-boxed values ~6% narrower than 1.3rem */
+.stage[data-me="me2"] .me-picker.boxed .me-picker-value { font-size: 13.2px; }              /* boxed values ~7% wider than .77rem */
+.stage[data-me="me2"] .key-cell { letter-spacing: .03em; }
+/* ME3 key bindings: smaller key text; row separators are three short glowing segments (label / primary / secondary) fading at both ends */
+.stage[data-me="me3"] .me-keys .key-cell { font-size: 12.2px; }
+.stage[data-me="me3"] .me-keys .me-row:not(.selected) { border-bottom: 0;
+  background: linear-gradient(90deg, transparent, #3a64b4 20%, #3a64b4 80%, transparent) 4px 100% / 290px 1px no-repeat,
+              linear-gradient(90deg, transparent, #3a64b4 25%, #3a64b4 75%, transparent) 306px 100% / 157px 1px no-repeat,
+              linear-gradient(90deg, transparent, #3a64b4 25%, #3a64b4 75%, transparent) 491px 100% / 160px 1px no-repeat; }
+/* ME3: the description panel is drawn by the frame SVG (see FRAME_ME3 in mock.js); the .me-desc box only places the text */
+.stage[data-me="me3"] .me-desc { background: none !important; }
+.scr-frame path.scr-desc { stroke: none; fill: url(#me3-desc); }
+.scr-frame path.scr-desc-sheen { stroke: none; fill: rgb(40 78 150 / 13%); }
+html[data-bs-theme="light"] .scr-frame path.scr-desc-sheen { fill: rgb(255 255 255 / 30%); }
+.scr-frame path.scr-desc-top { stroke: #3f6fbf; stroke-width: 1; opacity: .7; }
+html[data-bs-theme="light"] .scr-frame path.scr-desc { fill: #d5e6f0; }
+/* ME1: the game's display face is heavier than Michroma -> a light stroke on labels, values and the description */
+.stage[data-me="me1"] .me-row-label, .stage[data-me="me1"] .me-picker-value, .stage[data-me="me1"] .me-desc { -webkit-text-stroke: .3px currentColor; }
+.stage[data-me="me2"] .me-keys-head { margin-left: 10px; padding-left: 7px; }   /* header bar starts 7px further right, text stays */

@@ -195,19 +195,28 @@
     return '<div class="' + cls + '"><span class="me-row-label">' + r.l + '</span>' + mid + aside + '</div>';
   }
 
-  var FRAME_ME3 = '<svg class="scr-frame" viewBox="0 0 1023 638" aria-hidden="true"><path d="M150 135 H475 C499 135 507 111 539 111 H835 Q865 111 867 143 C888 250 888 345 872 424 L866 493H495C470 493 456 519 430 519H178Q150 519 150 490V420"/></svg>';
+  // ME3 frame. The description panel is not a separate box in the game: it fills the frame interior below y=421
+  // (slanted right edge, the bottom notch and the rounded bottom-left corner), light band at the top fading to navy.
+  var FRAME_ME3 = '<svg class="scr-frame" viewBox="0 0 1023 638" aria-hidden="true">' +
+    '<defs><linearGradient id="me3-desc" x1="0" y1="421" x2="0" y2="519" gradientUnits="userSpaceOnUse">' +
+    '<stop offset="0" stop-color="#1f4a92"/><stop offset=".07" stop-color="#1a3d78"/><stop offset=".2" stop-color="#1c324b"/><stop offset=".38" stop-color="#0a1630"/><stop offset=".6" stop-color="#060c1a"/><stop offset="1" stop-color="#05091a"/></linearGradient></defs>' +
+    '<path class="scr-desc" d="M155 421H872.6L866 493H495C470 493 456 519 430 519H178Q150 519 150 490V427Z" fill="url(#me3-desc)"/>' +
+    '<path class="scr-desc-sheen" d="M150 506L869.4 447 866 493H495C470 493 456 519 430 519H178Q150 519 150 490Z"/>' +
+    '<path class="scr-desc-top" d="M155 421.5H872.5"/><path d="M150 135 H475 C499 135 507 111 539 111 H835 Q865 111 867 143 C888 250 888 345 872 424 L866 493H495C470 493 456 519 430 519H178Q150 519 150 490V420"/></svg>';
 
   function px(v) { return v + 'px'; }
   /* Pixel corrections measured with tools/elements.py (best-shift search of each element vs the reference).
      [dx, dy] added to the layout numbers read by eye. Per screen, plus _all for the whole game. */
+  // Per-screen nudges (x, y) on top of the layout numbers above, measured by registering every element
+  // of the render against the reference PNG (edge correlation). Keys: title, rows, desc, foot, head, back.
   var ADJ = {
-    me3: { _all: { desc: [-4, -2], foot: [0, 0] }, graphics: { title: [0, 2] }, keys: { rows: [0, -6], foot: [0, -4] }, gameplay: { rows: [3, -5], foot: [0, -5] }, calibration: { rows: [0, -4], foot: [0, -3] }, controls: { rows: [-1, -1], foot: [0, 0] }, sound: { foot: [0, -1] } },
-    me1: { _all: { title: [0, 0], foot: [2, 0], rows: [0, -1] }, graphics: { desc: [0, -7] } },
-    me2: { _all: { foot: [0, 4], title: [2, 0] }, graphics: { rows: [0, 0] }, keys: { rows: [-1, 0] }, calibration: { rows: [-1, -1], desc: [3, 0] }, gameplay: { rows: [-4, 1] }, sound: { rows: [0, 0] } }
+    me3: { _all: { desc: [-4, -2], foot: [0, 0] }, graphics: { title: [0, 2] }, keys: { title: [0, -2], rows: [0, -6], foot: [0, -4] }, gameplay: { title: [0, -3], rows: [1, -5], foot: [0, -5] }, calibration: { rows: [0, -4], foot: [0, -3] }, controls: { rows: [0, -1], foot: [0, 0] }, sound: { title: [0, 2], foot: [-2, -1] } },
+    me1: { _all: { title: [0, -2], foot: [-1, 0], rows: [0, -1] }, graphics: { desc: [0, -7], back: [-3, -1] }, calibration: { back: [-4, -1] }, sound: { back: [-5, -1] }, controls: { back: [-5, -2] }, keys: { foot: [0, -2], back: [-6, -2] }, gameplay: { rows: [1, 0], back: [2, 1] } },
+    me2: { _all: { foot: [0, 0], title: [2, 0] }, graphics: { foot: [0, 4] }, keys: { rows: [-1, -2], back: [4, 2] }, calibration: { rows: [-1, -1], desc: [3, 0], foot: [0, 1], back: [-1, -2] }, gameplay: { rows: [-1, 1], back: [-4, -2] }, sound: { title: [0, -2], foot: [0, -1], back: [-1, -4] }, controls: { foot: [0, -1], back: [-3, 0] } }
   };
   function adjust(name, L) {
     var A = ADJ[GAME] || {}, out = {};
-    ['title', 'rows', 'desc', 'foot', 'head'].forEach(function (k) {
+    ['title', 'rows', 'desc', 'foot', 'head', 'back'].forEach(function (k) {
       if (!L[k]) return;
       var a = (A[name] && A[name][k]) || [0, 0], g = (A._all && A._all[k]) || [0, 0], v = L[k].slice();
       v[0] += a[0] + g[0]; v[1] += a[1] + g[1]; out[k] = v;
@@ -215,7 +224,7 @@
     return out;
   }
   function render(name) {
-    var S = D[name], L = adjust(name, S.L);
+    var S = D[name], L = adjust(name, Object.assign({ back: GAME === 'me1' ? [782, 548] : [906, 588] }, S.L));
     var h = '<div class="scr-title" style="left:' + px(L.title[0]) + ';top:' + px(L.title[1]) + '"><b>Options</b>' + (GAME === 'me1' ? '' : '<small>' + S.sub + '</small>') + '</div>';
     if (GAME === 'me3') h += FRAME_ME3;
     if (GAME === 'me1') h += '<div class="me1-head" style="left:' + px(L.head[0]) + ';top:' + px(L.head[1]) + ';width:' + px(L.head[2]) + ';height:' + px(L.head[3]) + '"><span>' + S.sub + '</span></div>';
@@ -230,8 +239,8 @@
     if (S.n7) h += '<img class="n7-box" src="../assets/skins/n7-' + GAME + '.svg" style="left:' + px(S.n7[0]) + ';top:' + px(S.n7[1]) + ';width:' + px(S.n7[2]) + ';height:' + px(S.n7[3]) + '" alt="">';
     h += '<div class="me-desc" style="left:' + px(L.desc[0]) + ';top:' + px(L.desc[1]) + ';width:' + px(L.desc[2]) + ';height:' + px(L.desc[3]) + '">' + S.desc + '</div>';
     h += '<div class="me-foot btn-group" style="left:' + px(L.foot[0]) + ';top:' + px(L.foot[1]) + ';width:' + px(L.foot[2]) + ';height:' + px(L.foot[3]) + '"><a class="btn btn-solid">' + (GAME === 'me1' ? 'Default' : 'Reset to Defaults') + '</a>' + (GAME === 'me3' ? '<a class="btn btn-solid">Back</a>' : '') + '</div>';
-    if (GAME === 'me1') h += '<img class="back-icon" src="../assets/icons/back-me1.svg" style="left:782px;top:548px;width:60px;height:20.5px" alt="">';
-    if (GAME === 'me2') h += '<img class="back-icon" src="../assets/icons/back-me2.svg" style="left:906px;top:588px" alt="">';
+    if (GAME === 'me1') h += '<img class="back-icon" src="../assets/icons/back-me1.svg" style="left:' + px(L.back[0]) + ';top:' + px(L.back[1]) + ';width:60px;height:20.5px" alt="">';
+    if (GAME === 'me2') h += '<img class="back-icon" src="../assets/icons/back-me2.svg" style="left:' + px(L.back[0]) + ';top:' + px(L.back[1]) + '" alt="">';
     return h;
   }
 
