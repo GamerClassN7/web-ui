@@ -565,7 +565,9 @@ html[data-me="me3"] .me-arrow.me-arrow.dim { filter: drop-shadow(0 0 2px #1d4a8c
 /* ME3 arrow: CSS filters run BEFORE masks, so a mask on the same element clips its own glow away.
    Fix: the element itself is unmasked (its own background is clipped away), the ::before carries mask + colour, the element's filter adds the glow. */
 html[data-me="me3"] .me-arrow.me-arrow {
-  -webkit-mask: none; mask: none; position: relative; -webkit-background-clip: text; background-clip: text;
+  /* !important: the state rules (selected / hover) set the colour with the `background` shorthand, which would reset the
+     clip and show the element's own square box behind the masked ::before */
+  -webkit-mask: none; mask: none; position: relative; -webkit-background-clip: text !important; background-clip: text !important;
 }
 html[data-me="me3"] .me-arrow.me-arrow::before {
   content: ""; position: absolute; inset: 0; background-color: inherit;
