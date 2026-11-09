@@ -8,7 +8,16 @@
   if (qs.get('bare')) document.body.classList.add('bare');
   var root = document.documentElement;
   root.setAttribute('data-me', GAME);
-  root.setAttribute('data-bs-theme', qs.get('theme') === 'light' ? 'light' : 'dark');
+  // Light/dark: URL ?theme= wins, else the mode saved by js/me.js (shared with the showcase), else dark.
+  var KEY = 'me-theme';
+  function readSaved() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+  function save(patch) {
+    var st = readSaved(); for (var k in patch) st[k] = patch[k];
+    try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { /* storage blocked */ }
+  }
+  var THEME = qs.get('theme') || readSaved().mode;
+  THEME = THEME === 'light' ? 'light' : 'dark';
+  root.setAttribute('data-bs-theme', THEME);
 
   var DATA = {};
 
@@ -244,5 +253,43 @@
     mode.addEventListener('change', setMode); ov.addEventListener('input', setMode);
     mode.value = qs.get('mode') || 'side'; setMode();
     show(D[cur] ? cur : 'graphics');
+    buildSwitcher();
   });
+
+  // Game (ME1/ME2/ME3) + Light/Dark switcher in the toolbar. Each game is its own page (it loads its
+  // own CSS layer), so switching games navigates, carrying the current screen, view and theme along.
+  function link(game) {
+    var q = new URLSearchParams(location.search);
+    q.set('screen', cur); q.set('theme', THEME);
+    var m = document.getElementById('mode').value;
+    if (m !== 'side') q.set('mode', m); else q.delete('mode');
+    return game + '.html?' + q.toString();
+  }
+  function buildSwitcher() {
+    var bar = document.querySelector('.cmp-bar'), title = bar.querySelector('strong');
+    var box = document.createElement('div'); box.className = 'cmp-switch';
+    box.innerHTML =
+      '<div class="cmp-seg" role="group" aria-label="Hra">' + ['me1', 'me2', 'me3'].map(function (g) {
+        return '<a data-game-link="' + g + '"' + (g === GAME ? ' aria-current="page"' : '') + '>' + g.toUpperCase() + '</a>';
+      }).join('') + '</div>' +
+      '<div class="cmp-seg" role="group" aria-label="Režim">' + ['light', 'dark'].map(function (t) {
+        return '<button type="button" data-theme="' + t + '" aria-pressed="' + (t === THEME) + '">' + (t === 'light' ? 'Light' : 'Dark') + '</button>';
+      }).join('') + '</div>';
+    if (title) bar.replaceChild(box, title); else bar.insertBefore(box, bar.firstChild);
+    save({ style: GAME, mode: THEME });
+
+    function refreshLinks() { box.querySelectorAll('[data-game-link]').forEach(function (a) { a.href = link(a.getAttribute('data-game-link')); }); }
+    refreshLinks();
+    document.getElementById('sel').addEventListener('change', refreshLinks);
+    document.getElementById('mode').addEventListener('change', refreshLinks);
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-theme]'); if (!b) return;
+      THEME = b.getAttribute('data-theme');
+      root.setAttribute('data-bs-theme', THEME);
+      box.querySelectorAll('[data-theme]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      save({ mode: THEME });
+      try { var q = new URLSearchParams(location.search); q.set('theme', THEME); history.replaceState(null, '', '?' + q.toString()); } catch (err) { /* ignore */ }
+      refreshLinks();
+    });
+  }
 })();

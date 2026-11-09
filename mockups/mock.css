@@ -6,9 +6,17 @@ html, body { background: #0b0b0e !important; background-image: none !important; 
   position: sticky; top: 0; z-index: 50; display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: center;
   padding: .6rem 1rem; background: #15151b; border-bottom: 1px solid #333; font-size: 14px;
 }
+.cmp-bar, .cmp-bar label { color: #ddd; }
 .cmp-bar label { display: inline-flex; gap: .4rem; align-items: center; }
 .cmp-bar select, .cmp-bar input[type=range] { accent-color: #4fc3f7; }
 .cmp-bar a { color: #8ecbff; }
+.cmp-switch { display: inline-flex; gap: .75rem; align-items: center; }
+.cmp-seg { display: inline-flex; border: 1px solid #3a3a46; border-radius: 4px; overflow: hidden; }
+.cmp-seg > a, .cmp-seg > button { padding: .2rem .65rem; font: 600 12px/1.4 system-ui, sans-serif; letter-spacing: .06em; color: #aab; background: transparent; border: 0; text-decoration: none; cursor: pointer; }
+.cmp-seg > * + * { border-left: 1px solid #3a3a46; }
+.cmp-seg > a:hover, .cmp-seg > button:hover { color: #fff; background: #23232c; }
+.cmp-seg > [aria-current="page"], .cmp-seg > [aria-pressed="true"] { color: #0b0b0e; background: #4fc3f7; }
+.cmp-seg > a:focus-visible, .cmp-seg > button:focus-visible { outline: 2px solid #4fc3f7; outline-offset: -2px; }
 .cmp-wrap { display: flex; justify-content: center; padding: 1rem; gap: 12px; }
 .cmp-col { position: relative; width: 1023px; flex: none; }
 .cmp-col > h4 { font: 600 12px system-ui; color: #888; margin: 0 0 4px; letter-spacing: .08em; text-transform: uppercase; }
