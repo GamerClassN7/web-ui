@@ -291,10 +291,13 @@
   function openDrop(r, rowEl) {
     closeDrop(); if (r.dis) return;
     // position in the stage's own CSS px (offsets, not screen rects: the view may be zoomed to fit the window)
-    var stg = document.getElementById('stage'), pk = rowEl.querySelector('.me-picker'), x = 0, y = 0;
-    for (var e = pk; e && e !== stg; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; }
+    // aligned with the value box (+ drop button), not the whole picker (which has padding / arrows)
+    var stg = document.getElementById('stage'), pk = rowEl.querySelector('.me-picker'), val = pk.querySelector('.me-picker-value'), drp = pk.querySelector('.me-picker-drop');
+    var x = 0, y = 0, x1 = 0;
+    for (var e = val; e && e !== stg; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; }
+    if (drp) { for (e = drp; e && e !== stg; e = e.offsetParent) x1 += e.offsetLeft; x1 += drp.offsetWidth; } else x1 = x + val.offsetWidth;
     var d = document.createElement('div'); d.className = 'mock-drop'; d.setAttribute('role', 'listbox');
-    d.style.left = x + 'px'; d.style.top = (y + pk.offsetHeight + 2) + 'px'; d.style.width = pk.offsetWidth + 'px';
+    d.style.left = x + 'px'; d.style.top = (y + val.offsetHeight + 3) + 'px'; d.style.width = (x1 - x) + 'px';
     optsFor(r).forEach(function (v) {
       var o = document.createElement('button'); o.type = 'button'; o.textContent = v; o.setAttribute('role', 'option');
       if (v === r.v) o.setAttribute('aria-selected', 'true');

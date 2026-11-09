@@ -255,19 +255,24 @@ html[data-bs-theme="light"] .scr-frame path.scr-desc { fill: #d5e6f0; }
 .stage .me-row:not(.disabled):not(.group) { cursor: pointer; }
 .stage .me-row .me-arrow, .stage .me-onoff .btn-check, .stage .key-cell, .stage .me-foot .btn { cursor: pointer; }
 .stage .form-range-input { pointer-events: auto; cursor: ew-resize; }
-.mock-drop { position: absolute; z-index: 40; max-height: 180px; overflow: auto; display: flex; flex-direction: column; padding: 2px 0;
-  background: #071026; border: 1px solid #3b6fc0; box-shadow: 0 6px 18px rgb(0 0 0 / 55%); font-size: 13.5px; }
-.mock-drop > button { all: unset; padding: 3px 10px; color: #a9d4ea; cursor: pointer; white-space: nowrap; text-align: center; }
-.mock-drop > button:hover, .mock-drop > button:focus-visible { background: #12346b; color: #fff; }
-.mock-drop > button[aria-selected="true"] { background: #6e130f; color: #ffd08a; }
-.stage[data-me="me2"] ~ .mock-drop, .stage[data-me="me2"] .mock-drop { background: #1b0f0a; border-color: #c08a50; }
-.stage[data-me="me2"] .mock-drop > button { color: #f0c48a; }
-.stage[data-me="me2"] .mock-drop > button:hover { background: #4a2e1b; }
-.stage[data-me="me2"] .mock-drop > button[aria-selected="true"] { background: #3f5a25; color: #d8ffb0; }
-.stage[data-me="me1"] .mock-drop { background: #0b1d33; border-color: #4093ae; font: 700 10.5px "Michroma", sans-serif; }
-.stage[data-me="me1"] .mock-drop > button { color: #5fc3ec; text-align: left; }
-.stage[data-me="me1"] .mock-drop > button:hover { background: #133555; }
-.stage[data-me="me1"] .mock-drop > button[aria-selected="true"] { background: #8a3a12; color: #ffd2a8; }
-html[data-bs-theme="light"] .mock-drop { background: #f3f8fb; }
-html[data-bs-theme="light"] .mock-drop > button { color: #0e3955; }
-html[data-bs-theme="light"] .mock-drop > button:hover { background: #d3e6f0; }
+/* Expanded picker = the game's picker widgets: same box, same font, current value marked like the selected row.
+   All options fit (no inner scrollbar); per game: ME3 rounded navy box + blue rim/glow, red pill for the value;
+   ME2 copper box, green value; ME1 square navy box, orange value. */
+.mock-drop { position: absolute; z-index: 40; max-height: 300px; overflow: auto; display: flex; flex-direction: column; gap: 1px; padding: 4px; box-sizing: border-box; }
+.mock-drop > button { all: unset; box-sizing: border-box; height: 21px; line-height: 19px; padding: 0 10px; border: 1px solid transparent; white-space: nowrap; text-align: center; cursor: pointer; }
+.stage[data-me="me3"] .mock-drop { background: linear-gradient(180deg, #0a1736, #050b1d 60%, #04091a); border: 1px solid #2455a9; border-radius: 11px;
+  box-shadow: 0 0 6px rgb(40 110 230 / 45%), 0 8px 18px rgb(0 0 0 / 60%); font-size: 14.6px; }
+.stage[data-me="me3"] .mock-drop > button { color: #a9d4ea; border-radius: 10px; }
+.stage[data-me="me3"] .mock-drop > button:hover, .stage[data-me="me3"] .mock-drop > button:focus-visible { color: #fff; background: linear-gradient(180deg, #123a7a, #0c2552); border-color: #2f6fd0; }
+.stage[data-me="me3"] .mock-drop > button[aria-selected="true"] { color: #ffd08a; background: linear-gradient(180deg, #8e1a12, #5a0a0c 55%, #74110d); border-color: #c02b1d; box-shadow: 0 0 6px rgb(255 70 40 / 45%); }
+.stage[data-me="me2"] .mock-drop { background: #24150d; border: 1px solid #e5a55c; box-shadow: 0 8px 18px rgb(0 0 0 / 60%); font-size: 13.2px; }
+.stage[data-me="me2"] .mock-drop > button { color: #e1a25a; }
+.stage[data-me="me2"] .mock-drop > button:hover, .stage[data-me="me2"] .mock-drop > button:focus-visible { background: #6c4c2e; border-color: #e5a55c; color: #ffd9a8; }
+.stage[data-me="me2"] .mock-drop > button[aria-selected="true"] { background: #527233; border-color: #9be85c; color: #e6ffcc; }
+.stage[data-me="me1"] .mock-drop { background: linear-gradient(180deg, #101f37, #133555); border: 1px solid #4093ae; box-shadow: 0 8px 18px rgb(0 0 0 / 60%); font: 700 10.2px "Michroma", sans-serif; }
+.stage[data-me="me1"] .mock-drop > button { height: 18px; line-height: 16px; color: #2d95c4; -webkit-text-stroke: .3px currentColor; }
+.stage[data-me="me1"] .mock-drop > button:hover, .stage[data-me="me1"] .mock-drop > button:focus-visible { background: #0f2c48; border-color: #2a5a78; color: #5fc3ec; }
+.stage[data-me="me1"] .mock-drop > button[aria-selected="true"] { background: linear-gradient(90deg, #8a3a12, #5c2610); border-color: #ff8d3e; color: #ffd2a8; }
+html[data-bs-theme="light"] .stage .mock-drop { background: #f3f8fb; }
+html[data-bs-theme="light"] .stage .mock-drop > button:not([aria-selected="true"]) { color: #0e3955; }
+html[data-bs-theme="light"] .stage .mock-drop > button:not([aria-selected="true"]):hover { background: #d3e6f0; }
